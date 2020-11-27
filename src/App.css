@@ -1,0 +1,21 @@
+.app-wrapper {
+    display: grid;
+
+    grid-template-areas:
+    "header header"
+    "nav content";
+
+    grid-template-rows: 10vh 1fr;
+    grid-template-columns: 2fr 10fr;
+
+    width: 100vw;
+}
+
+.header {
+    grid-area: header;
+    background-color: hsl(46, 81%, 49%);
+}
+
+a {
+    text-decoration: none;
+}
