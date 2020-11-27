@@ -1,0 +1,10 @@
+.nav {
+    height: 90vh;
+    grid-area: nav;
+    background-color: hsl(27, 81%, 49%);
+}
+
+.link {
+    list-style: none;
+}
+
