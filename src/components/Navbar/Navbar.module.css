@@ -8,3 +8,6 @@
     list-style: none;
 }
 
+.link a.active {
+    color: hsl(295, 100%, 21%);
+}

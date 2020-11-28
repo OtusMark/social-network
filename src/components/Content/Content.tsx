@@ -7,9 +7,8 @@ import Profile from './Profile/Profile';
 function Content() {
     return (
         <div className={s.content}>
-            <Profile />
-            {/* <Route component={Dialogs} />
-            <Route component={Profile} /> */}
+            <Route path="/Dialogs" component={Dialogs} />
+            <Route path="/Profile" component={Profile} />
         </div>
     );
 }
