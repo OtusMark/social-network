@@ -18,9 +18,9 @@
 
 a {
     text-decoration: none;
-    color: #ffffff;
+    color: hsl(0, 0%, 100%);
 }
 
 a.active {
-    color: #00ff0d;
+    color: hsl(123, 100%, 50%);
 }

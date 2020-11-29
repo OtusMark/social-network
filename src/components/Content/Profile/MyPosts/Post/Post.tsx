@@ -1,12 +1,18 @@
 import React from 'react';
+import Avatar from '../../../../Avatar/Avatar';
 import s from './Post.module.css';
 
-function Post(props: any) {
+type PostPropsType = {
+    message: string;
+    likes: string;
+};
+
+function Post(props: PostPropsType) {
     return (
         <div>
-            <img src="https://www.bioid.com/wp-content/uploads/face-database-bioid.jpg" alt="" className={s.avatar} />
-            <p className="post">{props.message}</p>
-            <p className="likes">{props.likes}</p>
+            <Avatar />
+            <p className={s.post}>{props.message}</p>
+            <p className={s.likes}>{props.likes}</p>
         </div>
     );
 }
