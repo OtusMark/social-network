@@ -4,11 +4,11 @@ import s from './Content.module.css';
 import Chats from './Chats/Chats';
 import Profile from './Profile/Profile';
 
-function Content() {
+function Content(props: any) {
     return (
         <div className={s.content}>
-            <Route path="/Profile" render={() => <Profile />} />
-            <Route path="/Chats" render={() => <Chats />} />
+            {/* <Route path="/Profile" render={() => <Profile posts={props.posts}/>} /> */}
+            <Route path="/chats" render={() => <Chats chats={props.chats}/>} />
         </div>
     );
 }

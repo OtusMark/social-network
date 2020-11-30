@@ -5,13 +5,14 @@ import Navbar from './components/Navbar/Navbar';
 import Content from './components/Content/Content';
 import { BrowserRouter } from 'react-router-dom';
 
-function App() {
+
+function App(props: any) {
   return (
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
         <Navbar />
-        <Content />
+        <Content posts={props.posts} chats={props.chats}/>
       </div>
     </BrowserRouter>
   );
