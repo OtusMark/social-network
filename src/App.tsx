@@ -5,16 +5,13 @@ import Navbar from './components/Navbar/Navbar';
 import Content from './components/Content/Content';
 import { BrowserRouter } from 'react-router-dom';
 
-
 function App(props: any) {
   return (
-    <BrowserRouter>
       <div className="app-wrapper">
         <Header />
         <Navbar />
-        <Content posts={props.posts} chats={props.chats}/>
+        <Content profilePage={props.state.profilePage} chatPage={props.state.chatPage}/>
       </div>
-    </BrowserRouter>
   );
 }
 

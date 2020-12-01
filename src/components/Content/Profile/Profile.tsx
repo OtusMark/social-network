@@ -1,11 +1,20 @@
 import React from 'react';
 import MyPosts from './MyPosts/MyPosts';
+import NewPost from './NewPost/NewPost';
 import s from './Profile.module.css';
 
-function Profile() {
+type ProfilePropsType = {
+  profilePage: {
+    myPosts: [];
+  };
+}
+
+function Profile(props: ProfilePropsType) {
+  
   return (
     <div className={s.profile}>
-      <MyPosts />
+      <NewPost />
+      <MyPosts myPosts={props.profilePage.myPosts}/>
     </div>
   );
 }

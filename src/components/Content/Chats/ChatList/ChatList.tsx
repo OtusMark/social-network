@@ -4,10 +4,10 @@ import s from './ChatList.module.css';
 import ChatName from './ChatName/ChatName';
 
 function ChatList(props: any) {
-    debugger
+
     let chatElemets =
-        props.chats.map(c => <ChatName chatId={c} chatName={c} />)
-    debugger
+        props.chats.map(arr => <ChatName chatId={arr} chatName={arr} />)
+
     return (
         <div className={s.chatList}>
             {chatElemets}

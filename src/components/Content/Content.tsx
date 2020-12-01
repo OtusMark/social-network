@@ -7,8 +7,8 @@ import Profile from './Profile/Profile';
 function Content(props: any) {
     return (
         <div className={s.content}>
-            {/* <Route path="/Profile" render={() => <Profile posts={props.posts}/>} /> */}
-            <Route path="/chats" render={() => <Chats chats={props.chats}/>} />
+            <Route path="/Profile" render={() => <Profile profilePage={props.profilePage}/>} />
+            <Route path="/chats" render={() => <Chats chats={props.chatPage.chatData}/>} />
         </div>
     );
 }
