@@ -1,17 +1,25 @@
 import React from 'react';
 import Post from './Post/Post';
 
-type MyPostsPropsType = {
-    myPosts: string[];
-};
+function MyPosts(props: any) {
+    let newPostElement: any = React.createRef();
 
-function MyPosts(props: MyPostsPropsType) {
+    let newPost = () => {
+        props.addPost();
+    }
+
+    let onPostChange = () => {
+        let text = newPostElement.current.value;
+        props.updateNewPostText(text);
+    }
 
     let myPosts =
-    props.myPosts.map(arr => <Post myPosts={arr} />)
+    props.profilePage.myPosts.map(arr => <Post myPosts={arr} />)
 
     return (
         <div className="my_posts">
+            <textarea onChange={onPostChange} ref={newPostElement} value={props.profilePage.newPostText}/>
+            <button onClick= {newPost}>add post</button>
             {myPosts}
         </div>
     );
