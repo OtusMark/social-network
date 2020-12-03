@@ -1,8 +1,9 @@
 .header {
-    grid-area: header;
-    background-color: hsl(46, 81%, 49%);
+    grid-area: h;
+    background-color: green;
 }
 
-.logo {
-    height: 90%;
+.header img {
+    width: 20px;
 }
+

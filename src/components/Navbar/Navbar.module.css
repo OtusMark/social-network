@@ -1,13 +1,14 @@
 .nav {
-    height: 90vh;
-    grid-area: nav;
-    background-color: hsl(27, 81%, 49%);
+    grid-area: n;
+    background-color: burlywood;
+    padding: 20px;
 }
 
-.link {
-    list-style: none;
+.item a {
+    color: white;
+    text-decoration: none;
 }
 
-.link a.active {
-    color: hsl(295, 100%, 21%);
+.item a.activeLink {
+    color: gold;
 }
