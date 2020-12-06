@@ -3,9 +3,13 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
 
+type MyPostsPropsType = {
+    posts: any;
+    newPostText: string;
+    dispatch: any;
+}
 
-
-const MyPosts = (props) => {
+const MyPosts = (props: MyPostsPropsType) => {
     let postsElements =
         props.posts.map( p => <Post message={p.message} likesCount={p.likesCount}/>);
 

@@ -19,7 +19,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": false // Потом убрать.
+    "noImplicitAny": false // Не ругается на any, позволяет писать говнокод. Убрать когда будешь курут!!!
   },
   "include": [
     "src"
