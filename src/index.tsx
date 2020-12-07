@@ -8,11 +8,11 @@ import './index.css';
 
 // type indexPropsType
 
-let rerenderEntireTree = (props) => {
+let rerenderEntireTree = (state: Object) => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App state={props} dispatch={store.dispatch.bind(store)} store={store} />
+        <App state={state} dispatch={store.dispatch.bind(store)} store={store} />
       </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
