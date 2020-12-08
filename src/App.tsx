@@ -6,13 +6,13 @@ import Profile from './components/Profile/Profile';
 import { Route } from "react-router-dom";
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 
-type AppPropsType = {
+type AppType = {
     state: any;
     dispatch: any;
     store: Object;
 };
 
-const App = (props: AppPropsType) => {
+const App = (props: AppType) => {
     return (
         <div className='app-wrapper'>
             <Header />
