@@ -2,11 +2,7 @@ import React from 'react';
 import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/profile-reducer";
 import MyPosts from './MyPosts';
 
-// type MyPostsPropsType = {
-//     posts: Array<{ id: number, message: string, likesCount: number }>;
-//     newPostText: string;
-//     dispatch: any;
-// }
+
 
 const MyPostsContainer = (props: any) => {
     let state = props.store.getState();

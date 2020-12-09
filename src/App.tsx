@@ -7,8 +7,8 @@ import { Route } from "react-router-dom";
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 type AppType = {
-    state: any;
-    dispatch: any;
+    state: Object;
+    dispatch: Object;
     store: Object;
 };
 

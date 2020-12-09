@@ -1,12 +1,18 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-export type InitialStateType = {
-    posts: Array<{id: number, message: string, likesCount: number}>;
+type postsType = {
+    id: number;
+    message: string;
+    likesCount: number;
+}
+
+type profileInitialStateType = {
+    posts: Array<postsType>;
     newPostText: string;
 };
 
-let initialState: InitialStateType = {
+let initialState: profileInitialStateType = {
     posts: [
         {id: 1, message: 'It\'s time to kick ass and chew bubble gum. And I\'m all out of gum.', likesCount: 666},
         {id: 2, message: 'I\'ll rip your head off and shit down your neck!', likesCount: 69},
@@ -16,7 +22,7 @@ let initialState: InitialStateType = {
     newPostText: 'Say some shit!'
 };
 
-const profileReducer = (state = initialState, action: any): InitialStateType => {
+const profileReducer = (state: profileInitialStateType = initialState, action: any): profileInitialStateType => {
 
     switch(action.type) {
         case ADD_POST:

@@ -6,9 +6,9 @@ import store from './redux/store'
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 
-// type indexPropsType
 
-let rerenderEntireTree = (state: Object) => {
+
+let rerenderEntireTree = (state) => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
