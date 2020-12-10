@@ -11,13 +11,13 @@ type messagesType = {
     message: string;
 }
 
-type dialogsInitialStateType = {
+export type dialogsStateType = {
     dialogs: Array<dialogsType>;
     messages: Array<messagesType>;
     newMessageBody: string;
 };
 
-let initialState: dialogsInitialStateType = {
+let initialState: dialogsStateType = {
     dialogs: [
         {id: 1, name: 'Name_1'},
         {id: 2, name: 'Name_2'},
@@ -36,7 +36,7 @@ let initialState: dialogsInitialStateType = {
     newMessageBody: ""
 };
 
-const dialogsReducer = (state: dialogsInitialStateType = initialState, action: any): dialogsInitialStateType => {
+const dialogsReducer = (state: dialogsStateType = initialState, action: any): dialogsStateType => {
    switch (action.type) {
        case UPDATE_NEW_MESSAGE_BODY:
            state.newMessageBody = action.body;

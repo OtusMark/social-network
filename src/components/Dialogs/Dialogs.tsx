@@ -4,7 +4,6 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 
 const Dialogs = (props) => {
-
     let state = props.dialogsPage;
 
     let dialogsElements = state.dialogs.map( d => <DialogItem name={d.name} id={d.id} />  );
@@ -31,7 +30,8 @@ const Dialogs = (props) => {
                     <div>
                         <textarea value={newMessageBody}
                                   onChange={onNewMessageChange}
-                                  placeholder='Enter your message'/>
+                                  placeholder='Enter your message'>
+                    </textarea>
                     </div>
                     <div><button onClick={onSendMessageClick}>Send</button></div>
                 </div>

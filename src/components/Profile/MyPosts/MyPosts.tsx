@@ -2,13 +2,8 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
-// type MyPostsPropsType = {
-//     posts: Array<{ id: number, message: string, likesCount: number }>;
-//     newPostText: string;
-//     dispatch: any;
-// }
-
 const MyPosts = (props: any) => {
+
     let postsElements =
         props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} />);
 
@@ -20,11 +15,12 @@ const MyPosts = (props: any) => {
     }
 
     let onPostChange = () => {
+
         let text = newPostElement.current.value;
         props.updateNewPostText(text);
     }
-
     return (
+
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>

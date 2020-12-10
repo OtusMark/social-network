@@ -7,12 +7,21 @@ type postsType = {
     likesCount: number;
 }
 
-type profileInitialStateType = {
+type addPostActionCreatorActionType = {
+    type: typeof ADD_POST;
+};
+
+type updateNewPostTextActionCreatorType = {
+    type: typeof UPDATE_NEW_POST_TEXT;
+    newText: string;
+};
+
+export type profileStateType = {
     posts: Array<postsType>;
     newPostText: string;
 };
 
-let initialState: profileInitialStateType = {
+let initialState: profileStateType = {
     posts: [
         {id: 1, message: 'It\'s time to kick ass and chew bubble gum. And I\'m all out of gum.', likesCount: 666},
         {id: 2, message: 'I\'ll rip your head off and shit down your neck!', likesCount: 69},
@@ -22,34 +31,32 @@ let initialState: profileInitialStateType = {
     newPostText: 'Say some shit!'
 };
 
-const profileReducer = (state: profileInitialStateType = initialState, action: any): profileInitialStateType => {
+const profileReducer = (state: profileStateType = initialState, action: any): profileStateType => {
 
     switch(action.type) {
-        case ADD_POST:
+        case ADD_POST: {
             let newPost = {
                 id: 5,
                 message: state.newPostText,
-                likesCount: 0,
+                likesCount: 0
             };
-            state.posts.push(newPost);
-            state.newPostText = '';
-            return state;
-        case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText;
-            return state;
+            let stateCopy = {...state};
+            stateCopy.posts = [...state.posts];
+            stateCopy.posts.push(newPost);
+            stateCopy.newPostText = '';
+            return stateCopy;
+        }
+        case UPDATE_NEW_POST_TEXT: {
+
+            let stateCopy = {...state};
+            stateCopy.posts = [...state.posts];
+            stateCopy.newPostText = action.newText;
+            return stateCopy;
+        }
         default:
             return state;
     }
 }
-
-type addPostActionCreatorActionType = {
-    type: typeof ADD_POST;
-};
-
-type updateNewPostTextActionCreatorType = {
-    type: typeof UPDATE_NEW_POST_TEXT;
-    newText: string;
-};
 
 export const addPostActionCreator = (): addPostActionCreatorActionType => ({type: ADD_POST})
 export const updateNewPostTextActionCreator = (text: string): updateNewPostTextActionCreatorType =>

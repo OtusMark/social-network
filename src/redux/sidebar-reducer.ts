@@ -1,4 +1,8 @@
-let initialState = {};
+export type sidebarStateType = {
+
+}
+
+let initialState: sidebarStateType = {};
 
 const sidebarReducer = (state = initialState, action) => {
     return state;
