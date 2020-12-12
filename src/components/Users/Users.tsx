@@ -9,7 +9,6 @@ let Users = (props) => {
             {id: 3, photoUrl: 'https://avt-18.foto.mail.ru/mail/shilo1991/_avatar180', followed: true, fullName: "Clark", status: "I like candy", location: {city: "Jerusalem", country: "Israel"}},
         ])
     }
-    debugger
     return (
         <div>
             {
