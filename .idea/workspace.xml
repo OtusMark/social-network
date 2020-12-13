@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="025b3e31-45f3-443b-aee6-e4d0bb388dec" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/assets/images/avatar-empty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Users/UsersC.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Users/Users.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Users/Users.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Users/Users.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/archive/Users.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Users/UsersContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Users/UsersContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/users-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/users-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +49,10 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\my-projects\web\react\Incubator\samurai\src\components\Users" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\my-projects\web\react\Incubator\samurai\src\archive" />
+      <recent name="E:\my-projects\web\react\Incubator\samurai\src\assets\images" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -70,7 +78,9 @@
       <workItem from="1607759157700" duration="3597000" />
       <workItem from="1607771928272" duration="659000" />
       <workItem from="1607772605588" duration="3892000" />
-      <workItem from="1607776659565" duration="3248000" />
+      <workItem from="1607776659565" duration="3681000" />
+      <workItem from="1607849968053" duration="252000" />
+      <workItem from="1607850237487" duration="6371000" />
     </task>
     <servers />
   </component>
