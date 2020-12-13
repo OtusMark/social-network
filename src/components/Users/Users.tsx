@@ -6,26 +6,55 @@ import userPhoto from '../../assets/images/avatar-empty.png'
 // ShitCode - Redefine any//
 interface UsersProps {
     users: any;
+    pageSize: any;
+    totalUsersCount: any;
+    currentPage: number;
     setUsers: any;
     follow: any;
     unfollow: any;
+    setCurrentPage: any;
 }
 
 
 class Users extends React.Component<UsersProps> {
 
-    constructor(props) {
-        super(props);
-
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            this.props.setUsers (response.data.items);
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items);
         });
     }
 
+    // 55 - 51:00
+    onPageChanged = (pageNumber) => {
+        this.props.setCurrentPage(pageNumber)
+    }
+
     render() {
-        return <div>
-            {
-                this.props.users.map(u => <div key={u.id}>
+
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+
+        let pages: Array<number> = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i);
+        }
+
+        const setStyle = (page) => {
+            if (this.props.currentPage === page) {
+                return styles.selectedPage
+            } else {
+                return '';
+            }
+        }
+
+        return (
+            <div>
+                <div>
+                    {pages.map(p => {
+                        return <span className={setStyle(p)} onClick={ (e) => {this.onPageChanged(p)}}>{p}</span>
+                    })}
+                </div>
+                {
+                    this.props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
                             <img className={styles.avatar} src={u.photos.small != null ? u.photos.small : userPhoto}
@@ -38,7 +67,7 @@ class Users extends React.Component<UsersProps> {
                             }
                         </div>
                     </span>
-                    <span>
+                        <span>
                         <span>
                             <div>{u.name}</div>
                             <div>{u.id}</div>
@@ -48,9 +77,10 @@ class Users extends React.Component<UsersProps> {
                             <div>{u.status}</div>
                         </span>
                     </span>
-                </div>)
-            }
-        </div>
+                    </div>)
+                }
+            </div>
+        )
     }
 }
 

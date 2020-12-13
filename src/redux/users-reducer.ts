@@ -1,6 +1,7 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 
 type photosType = {
     small: string;
@@ -18,10 +19,16 @@ type usersType = {
 
 export type usersStateType = {
     users: Array<usersType>;
+    pageSize: number;
+    totalUsersCount: number;
+    currentPage: number;
 };
 
 let initialState: usersStateType = {
-    users: []
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 19,
+    currentPage: 2,
 };
 
 const usersReducer = (state: usersStateType = initialState, action: any): usersStateType => {
@@ -50,6 +57,10 @@ const usersReducer = (state: usersStateType = initialState, action: any): usersS
         case SET_USERS: {
             return {...state, users: [...state.users, ...action.users]}
         }
+
+        case SET_CURRENT_PAGE: {
+            return {...state, currentPage: action.currentPage}
+        }
         default:
             return state;
     }
@@ -58,5 +69,6 @@ const usersReducer = (state: usersStateType = initialState, action: any): usersS
 export const followAC = (userId) => ({type: FOLLOW, userId});
 export const unFollowAC = (userId) => ({type: UNFOLLOW, userId});
 export const setUsersAc = (users) => ({type: SET_USERS, users});
+export const setCurrentPageAC = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 
 export default usersReducer;
