@@ -55,7 +55,7 @@ class Users extends React.Component<UsersProps> {
             <div>
                 <div>
                     {pages.map(p => {
-                        return <span className={setStyle(p)} onClick={ (e) => {this.onPageChanged(p)}}>{p}</span>
+                        return <span className={setStyle(p)} onClick={ () => {this.onPageChanged(p)}}>{p}</span>
                     })}
                 </div>
                 {
