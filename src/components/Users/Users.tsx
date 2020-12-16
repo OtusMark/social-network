@@ -13,6 +13,7 @@ interface UsersProps {
     follow: any;
     unfollow: any;
     setCurrentPage: any;
+    setTotalUsersCount: any;
 }
 
 
@@ -21,12 +22,16 @@ class Users extends React.Component<UsersProps> {
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers(response.data.items);
+            this.props.setTotalUsersCount(response.data.totalCount);
         });
     }
 
-    // 55 - 51:00
+
     onPageChanged = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber)
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items);
+        });
     }
 
     render() {
