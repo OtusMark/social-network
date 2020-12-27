@@ -19,7 +19,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": false // Не ругается на any, позволяет писать говнокод. Убрать когда будешь курут!!!
+    "noImplicitAny": false // Не ругается на any, позволяет писать говнокод. Разобраться с TypeScript для Redux и убрать нафиг.
   },
   "include": [
     "src"

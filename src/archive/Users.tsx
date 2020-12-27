@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import styles from '../components/Users/users.module.css';
+import styles from '../components/Users/users.module.scss';
 import userPhoto from '../assets/images/avatar-empty.png'
 
 let Users = (props) => {
