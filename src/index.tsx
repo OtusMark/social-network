@@ -4,11 +4,25 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom';
-import {Provider} from "react-redux";
+
+export type PostType = {
+    id: number
+    post: string
+    likes: number
+}
+export type PostDataType = Array<PostType>
+
+let posts: PostDataType = [
+    {id: 1, post: 'My first post', likes: 1},
+    {id: 2, post: 'My second post', likes: 2},
+    {id: 3, post: 'My third post', likes: 3},
+    {id: 4, post: 'My fourth post', likes: 4},
+    {id: 5, post: 'My fifth post', likes: 5}
+]
 
 ReactDOM.render(
     <BrowserRouter>
-        <App/>
+        <App posts={posts}/>
     </BrowserRouter>,
     document.getElementById('root'));
 

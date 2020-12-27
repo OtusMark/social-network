@@ -1,0 +1,10 @@
+@import "src/styles/variables";
+
+.dialogs {
+  display: flex;
+}
+
+.dialogsList {
+  display: flex;
+  flex-direction: row;
+}

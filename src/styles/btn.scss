@@ -1,0 +1,40 @@
+@import "variables";
+
+@mixin buttonGeneral {
+  border: none;
+  cursor: pointer;
+  box-shadow: $box-shadow;
+  background-color: $color-grey-low;
+}
+
+@mixin buttonHover {
+  background-color: $color-primary;
+}
+
+.btn {
+  @include buttonGeneral;
+  padding: .5rem 1rem;
+  border-radius: 5px;
+
+  &:hover {
+    @include buttonHover;
+    color: $color-white;
+  }
+
+  &Close {
+    @include buttonGeneral;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;
+    border-radius: 30px;
+
+    &:hover {
+      @include buttonHover;
+
+      & > svg{
+        fill: $color-white;
+      }
+    }
+  }
+}

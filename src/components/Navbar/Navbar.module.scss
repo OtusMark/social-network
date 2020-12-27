@@ -1,0 +1,10 @@
+@import "src/styles/variables";
+
+.navbar {
+  grid-area: n;
+  background-color: $color-grey-low;
+}
+
+.activeLink {
+  color: $color-primary;
+}
