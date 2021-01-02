@@ -32,6 +32,8 @@ export type stateType = {
     messages: messagesStateType
 }
 
+export type addPostType = (postMessage: string) => void
+
 export let state: stateType = {
     profile: {
         posts: [
@@ -58,4 +60,15 @@ export let state: stateType = {
             {id: 5, message: 'My name is Arthur'}
         ]
     }
+}
+
+
+
+export let addPost: addPostType = (postMessage: string) => {
+    let newPost: PostType = {
+        id: 5,
+        post: postMessage,
+        likes: 0
+    }
+    state.profile.posts.push(newPost);
 }
