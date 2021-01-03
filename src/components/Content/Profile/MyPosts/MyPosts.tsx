@@ -17,6 +17,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
     let addPost = () => {
         let text = newPostElement.current ? newPostElement.current.value : "";
         props.addPost(text);
+        if (newPostElement.current) { newPostElement.current.value = '' }
     }
 
     return (
