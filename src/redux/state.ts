@@ -1,4 +1,6 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = (state: stateType) => {
+
+}
 
 export type PostType = {
     id: number
@@ -22,6 +24,7 @@ export type MessagesDataType = Array<MessagesType>
 
 export type profileStateType = {
     posts: PostDataType
+    newPostText: string
 }
 
 export type messagesStateType = {
@@ -30,14 +33,15 @@ export type messagesStateType = {
 }
 
 export type stateType = {
-    profile: profileStateType
-    messages: messagesStateType
+    profilePage: profileStateType
+    messagesPage: messagesStateType
 }
 
-export type addPostType = (postMessage: string) => void
+export type addPostType = () => void
+export type updateNewPostTextType = (newText: string) => void
 
 export let state: stateType = {
-    profile: {
+    profilePage: {
         posts: [
             {id: 1, post: 'My first post', likes: 1},
             {id: 2, post: 'My second post', likes: 2},
@@ -45,8 +49,9 @@ export let state: stateType = {
             {id: 4, post: 'My fourth post', likes: 4},
             {id: 5, post: 'My fifth post', likes: 5}
         ],
+        newPostText: ''
     },
-    messages: {
+    messagesPage: {
         dialogs: [
             {id: 1, name: 'Mark'},
             {id: 2, name: 'Ivan'},
@@ -66,12 +71,22 @@ export let state: stateType = {
 
 
 
-export let addPost: addPostType = (postMessage: string) => {
+export const addPost: addPostType = () => {
     let newPost: PostType = {
         id: 5,
-        post: postMessage,
+        post: state.profilePage.newPostText,
         likes: 0
     }
-    state.profile.posts.push(newPost);
-    rerenderEntireTree(state);
+    state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state)
+}
+
+export const updateNewPostText: updateNewPostTextType = (newText: string) => {
+    state.profilePage.newPostText = newText
+    rerenderEntireTree(state)
+}
+
+export const subscribe = (observer: (state: stateType) => void) => {
+    rerenderEntireTree = observer
 }
