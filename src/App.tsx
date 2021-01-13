@@ -4,12 +4,11 @@ import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Content} from "./components/Content/Content";
 import {BrowserRouter} from "react-router-dom";
-import {addPostType, stateType, updateNewPostTextType} from "./redux/state";
+import { DispatchType, stateType } from "./redux/state";
 
 type AppPropsType = {
     state: stateType
-    addPost: addPostType
-    updateNewPostText: updateNewPostTextType
+    dispatch: DispatchType
 }
 
 const App = (props: AppPropsType) => {
@@ -21,8 +20,7 @@ const App = (props: AppPropsType) => {
                 <Content
                     profilePage={props.state.profilePage}
                     messagesPage={props.state.messagesPage}
-                    addPost={props.addPost}
-                    updateNewPostText={props.updateNewPostText}
+                    dispatch={props.dispatch}
                 />
             </div>
         </BrowserRouter>
