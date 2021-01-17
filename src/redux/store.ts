@@ -1,13 +1,16 @@
 // Types
+import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
+import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+
 export type StoreType = {
-    _state: stateType
-    getState: () => stateType
+    _state: StateType
+    getState: () => StateType
     _callSubscriber: RerenderEntireTreeType;
     subscribe: SubscribeType
     dispatch: DispatchType
 }
 
-export type stateType = {
+export type StateType = {
     profilePage: profileStateType
     dialogsPage: messagesStateType
 }
@@ -43,18 +46,16 @@ export type messagesStateType = {
     newMessageBody: string
 }
 
-export type RerenderEntireTreeType = (state: stateType) => void
+export type RerenderEntireTreeType = (state: StateType) => void
 export type SubscribeType = (observer: RerenderEntireTreeType) => void
 
-export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC> | ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessageAC>
+export type ActionsType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof updateNewMessageBodyAC>
+    | ReturnType<typeof sendMessageAC>
 
-export type DispatchType = (action: ActionsTypes) => void
-
-// Variables
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
-const SEND_MESSAGE = 'SEND-MESSAGE'
+export type DispatchType = (action: ActionsType) => void
 
 // Store
 export let store: StoreType = {
@@ -87,7 +88,7 @@ export let store: StoreType = {
             newMessageBody: ''
         }
     },
-    _callSubscriber(state: stateType) {
+    _callSubscriber(state: StateType) {
     },
     getState() {
         return this._state
@@ -96,42 +97,9 @@ export let store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost: PostType = {
-                id: 6,
-                post: this._state.profilePage.newPostText,
-                likes: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this._state.dialogsPage.newMessageBody = action.newBody
-            this._callSubscriber(this._state)
-        } else if (action.type === SEND_MESSAGE) {
-            let body: MessagesType = {
-                id: 6,
-                message: this._state.dialogsPage.newMessageBody
-            }
-            this._state.dialogsPage.newMessageBody = ''
-            this._state.dialogsPage.messages.push(body)
-            this._callSubscriber(this._state)
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+
+        this._callSubscriber(this._state)
     }
 }
-
-// Action Creators
-export const addPostAC = () => ({type: ADD_POST} as const)
-
-export const updateNewPostTextAC = (text: string) => ({
-    type: UPDATE_NEW_POST_TEXT, newText: text
-} as const)
-
-export const updateNewMessageBodyAC = (text: string) => ({
-    type: UPDATE_NEW_MESSAGE_BODY, newBody: text
-} as const)
-
-export const sendMessageAC = () => ({type: SEND_MESSAGE} as const)

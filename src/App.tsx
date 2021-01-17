@@ -3,12 +3,12 @@ import './App.scss';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {BrowserRouter, Route} from "react-router-dom";
-import {DispatchType, stateType, StoreType} from "./redux/state";
+import {DispatchType, StateType, StoreType} from "./redux/store";
 import {Profile} from "./components/Content/Profile/Profile";
 import {Dialogs} from "./components/Content/Dialogs/Dialogs";
 
 type AppPropsType = {
-    state: stateType
+    state: StateType
     dispatch: DispatchType
     store: StoreType
 }

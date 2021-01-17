@@ -1,12 +1,8 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.scss'
 import {Post} from "./Post/Post";
-import {
-    addPostAC,
-    DispatchType,
-    PostDataType,
-    updateNewPostTextAC
-} from "../../../../redux/state";
+import {DispatchType, PostDataType} from "../../../../redux/store";
+import {addPostAC, updateNewPostTextAC} from "../../../../redux/profile-reducer";
 
 type MyPostsPropsType = {
     posts: PostDataType
