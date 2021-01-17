@@ -2,13 +2,15 @@ import React from 'react';
 import './App.scss';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
-import {Content} from "./components/Content/Content";
-import {BrowserRouter} from "react-router-dom";
-import { DispatchType, stateType } from "./redux/state";
+import {BrowserRouter, Route} from "react-router-dom";
+import {DispatchType, stateType, StoreType} from "./redux/state";
+import {Profile} from "./components/Content/Profile/Profile";
+import {Dialogs} from "./components/Content/Dialogs/Dialogs";
 
 type AppPropsType = {
     state: stateType
     dispatch: DispatchType
+    store: StoreType
 }
 
 const App = (props: AppPropsType) => {
@@ -17,11 +19,15 @@ const App = (props: AppPropsType) => {
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
-                <Content
-                    profilePage={props.state.profilePage}
-                    messagesPage={props.state.messagesPage}
-                    dispatch={props.dispatch}
-                />
+                <div className='app-content'>
+                    <Route path='/profilePage'
+                           render={() => <Profile
+                               posts={props.state.profilePage.posts}
+                               dispatch={props.dispatch}
+                               newPostText={props.state.profilePage.newPostText}/>}/>
+                    <Route path='/dialogs'
+                           render={() => <Dialogs store={props.store}/>}/>
+                </div>
             </div>
         </BrowserRouter>
     )

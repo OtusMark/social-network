@@ -1,3 +1,17 @@
+// Types
+export type StoreType = {
+    _state: stateType
+    getState: () => stateType
+    _callSubscriber: RerenderEntireTreeType;
+    subscribe: SubscribeType
+    dispatch: DispatchType
+}
+
+export type stateType = {
+    profilePage: profileStateType
+    dialogsPage: messagesStateType
+}
+
 export type PostType = {
     id: number
     post: string
@@ -25,38 +39,25 @@ export type profileStateType = {
 
 export type messagesStateType = {
     dialogs: DialogsDataType
-    dialogsMessages: MessagesDataType
+    messages: MessagesDataType
+    newMessageBody: string
 }
-
-export type stateType = {
-    profilePage: profileStateType
-    messagesPage: messagesStateType
-}
-
 
 export type RerenderEntireTreeType = (state: stateType) => void
 export type SubscribeType = (observer: RerenderEntireTreeType) => void
 
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
+export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC> | ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessageAC>
 
-export type ChangeNewTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
+export type DispatchType = (action: ActionsTypes) => void
 
-export type DispatchType = (action: AddPostActionType | ChangeNewTextActionType) => void
+// Variables
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
+const SEND_MESSAGE = 'SEND-MESSAGE'
 
-export type storeType = {
-    _state: stateType
-    getState: () => stateType
-    _callSubscriber: RerenderEntireTreeType;
-    subscribe: SubscribeType
-    dispatch: DispatchType
-}
-
-export let store: storeType = {
+// Store
+export let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -68,7 +69,7 @@ export let store: storeType = {
             ],
             newPostText: ''
         },
-        messagesPage: {
+        dialogsPage: {
             dialogs: [
                 {id: 1, name: 'Mark'},
                 {id: 2, name: 'Ivan'},
@@ -76,13 +77,14 @@ export let store: storeType = {
                 {id: 4, name: 'Robert'},
                 {id: 5, name: 'Arthur'}
             ],
-            dialogsMessages: [
+            messages: [
                 {id: 1, message: 'My name is Mark'},
                 {id: 2, message: 'My name is Ivan'},
                 {id: 3, message: 'My name is Issac'},
                 {id: 4, message: 'My name is Robert'},
                 {id: 5, message: 'My name is Arthur'}
-            ]
+            ],
+            newMessageBody: ''
         }
     },
     _callSubscriber(state: stateType) {
@@ -94,19 +96,42 @@ export let store: storeType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             let newPost: PostType = {
-                id: 5,
+                id: 6,
                 post: this._state.profilePage.newPostText,
                 likes: 0
             }
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = ''
             this._callSubscriber(this._state)
-        }
-        else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
+            this._callSubscriber(this._state)
+        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this._state.dialogsPage.newMessageBody = action.newBody
+            this._callSubscriber(this._state)
+        } else if (action.type === SEND_MESSAGE) {
+            let body: MessagesType = {
+                id: 6,
+                message: this._state.dialogsPage.newMessageBody
+            }
+            this._state.dialogsPage.newMessageBody = ''
+            this._state.dialogsPage.messages.push(body)
             this._callSubscriber(this._state)
         }
     }
 }
+
+// Action Creators
+export const addPostAC = () => ({type: ADD_POST} as const)
+
+export const updateNewPostTextAC = (text: string) => ({
+    type: UPDATE_NEW_POST_TEXT, newText: text
+} as const)
+
+export const updateNewMessageBodyAC = (text: string) => ({
+    type: UPDATE_NEW_MESSAGE_BODY, newBody: text
+} as const)
+
+export const sendMessageAC = () => ({type: SEND_MESSAGE} as const)
