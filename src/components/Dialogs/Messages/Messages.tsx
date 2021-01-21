@@ -1,5 +1,5 @@
 import React from "react";
-import {MessagesType} from "../../../../redux/store";
+import {MessagesType} from "../../../redux/store";
 
 type MessagePropsType = MessagesType;
 

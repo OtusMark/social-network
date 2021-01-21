@@ -2,12 +2,7 @@ import {CombinedState, combineReducers, createStore, Store} from "redux";
 import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
 import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
 
-export type StateType = CombinedState<{
-    profilePage: profileStateType
-    dialogsPage: dialogsStateType
-}>
-
-export type StoreType = Store<StateType>
+// Types
 export type PostType = {
     id: number
     post: string
@@ -39,11 +34,6 @@ export type dialogsStateType = {
     newMessageBody: string
 }
 
-// export type RerenderEntireTreeType = (state: StateType) => void
-// export type SubscribeType = (observer: RerenderEntireTreeType) => void
-
-
-
 export type ActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
@@ -52,6 +42,14 @@ export type ActionsType =
 
 export type DispatchType = (action: ActionsType) => void
 
+export type StateType = CombinedState<{
+    profilePage: profileStateType
+    dialogsPage: dialogsStateType
+}>
+
+export type StoreType = Store<StateType>
+
+// Redux
 let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer

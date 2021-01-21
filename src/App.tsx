@@ -3,13 +3,12 @@ import './App.scss';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {BrowserRouter, Route} from "react-router-dom";
-import {DispatchType, StateType, StoreType} from "./redux/store";
-import {Profile} from "./components/Content/Profile/Profile";
-import {Dialogs} from "./components/Content/Dialogs/Dialogs";
+import {StateType, StoreType} from "./redux/store";
+import {Profile} from "./components/Profile/Profile";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
     state: StateType
-    dispatch: DispatchType
     store: StoreType
 }
 
@@ -21,12 +20,9 @@ const App = (props: AppPropsType) => {
                 <Navbar/>
                 <div className='app-content'>
                     <Route path='/profilePage'
-                           render={() => <Profile
-                               posts={props.state.profilePage.posts}
-                               dispatch={props.dispatch}
-                               newPostText={props.state.profilePage.newPostText}/>}/>
+                           render={() => <Profile store={props.store}/>}/>
                     <Route path='/dialogs'
-                           render={() => <Dialogs store={props.store}/>}/>
+                           render={() => <DialogsContainer store={props.store}/>}/>
                 </div>
             </div>
         </BrowserRouter>
