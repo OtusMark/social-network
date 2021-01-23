@@ -1,10 +1,10 @@
 import React from 'react';
 import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogs-reducer";
-import {DispatchType, StateType} from "../../redux/store";
+import {DispatchType, CombinedStateType} from "../../redux/store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 
-let mapStateToProps = (state: StateType) => {
+let mapStateToProps = (state: CombinedStateType) => {
     return {
         dialogsPage: state.dialogsPage
     }

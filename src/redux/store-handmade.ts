@@ -37,7 +37,7 @@ export {}
 //             newMessageBody: ''
 //         }
 //     },
-//     _callSubscriber(state: StateType) {
+//     _callSubscriber(state: CombinedStateType) {
 //     },
 //     getState() {
 //         return this._state

@@ -1,58 +1,25 @@
-import {CombinedState, combineReducers, createStore, Store} from "redux";
-import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
-import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+import {CombinedState, combineReducers, createStore} from "redux";
+import {ProfileActionsType, profileReducer, profileStateType} from "./profile-reducer";
+import {DialogsActionsType, dialogsReducer, dialogsStateType} from "./dialogs-reducer";
+import {UsersActionsType, usersReducer, UsersStateType} from "./users-reducer";
 
-// Types
-export type PostType = {
-    id: number
-    post: string
-    likes: number
-}
 
-export type DialogsType = {
-    id: number
-    name: string
-}
+export type CombinedActionsType =
+    DialogsActionsType | ProfileActionsType | UsersActionsType
 
-export type MessagesType = {
-    id: number
-    message: string
-}
+export type DispatchType = (action: CombinedActionsType) => void
 
-export type PostDataType = Array<PostType>
-export type DialogsDataType = Array<DialogsType>
-export type MessagesDataType = Array<MessagesType>
-
-export type profileStateType = {
-    posts: PostDataType
-    newPostText: string
-}
-
-export type dialogsStateType = {
-    dialogs: DialogsDataType
-    messages: MessagesDataType
-    newMessageBody: string
-}
-
-export type ActionsType =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateNewPostTextAC>
-    | ReturnType<typeof updateNewMessageBodyAC>
-    | ReturnType<typeof sendMessageAC>
-
-export type DispatchType = (action: ActionsType) => void
-
-export type StateType = CombinedState<{
+export type CombinedStateType = CombinedState<{
     profilePage: profileStateType
     dialogsPage: dialogsStateType
+    usersPage: UsersStateType
 }>
-
-export type StoreType = Store<StateType>
 
 // Redux
 let reducers = combineReducers({
     profilePage: profileReducer,
-    dialogsPage: dialogsReducer
+    dialogsPage: dialogsReducer,
+    usersPage: usersReducer
 })
 
 export let store = createStore(reducers)
