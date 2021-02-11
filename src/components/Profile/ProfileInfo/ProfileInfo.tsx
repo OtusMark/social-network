@@ -1,13 +1,23 @@
 import React from "react";
+import {Preloader} from "../../common/Preloader/Preloader";
 
-export const ProfileInfo = () => {
+type propsType = {
+    profile: any
+}
+
+export const ProfileInfo = (props: propsType) => {
+    if (!props.profile) {
+        return <Preloader/>
+    }
+
+
     return (
         <div>
             <div>
-                <img src="https://www.postplanner.com/hs-fs/hub/513577/file-2886416984-png/blog-files/facebook-profile-pic-vs-cover-photo-sq.png?width=250&height=250&name=facebook-profile-pic-vs-cover-photo-sq.png" alt="profilePage photo"/>
+                <img src={props.profile.photos.large} alt=""/>
             </div>
             <div>
-                Profile description
+
             </div>
         </div>
     )

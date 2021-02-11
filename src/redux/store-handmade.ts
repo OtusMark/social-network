@@ -1,7 +1,7 @@
 export {}
 
 // // Types
-// import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
+// import {addPost, profileReducer, updateNewPostText} from "./profile-reducer";
 // import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
 //
 //

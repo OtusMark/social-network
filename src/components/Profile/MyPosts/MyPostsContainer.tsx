@@ -2,7 +2,7 @@ import React from 'react';
 
 import {MyPosts} from "./MyPosts";
 import {DispatchType, CombinedStateType} from "../../../redux/store";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
+import {addPost, updateNewPostText} from "../../../redux/profile-reducer";
 import {connect} from "react-redux";
 
 let mapStateToProps = (state: CombinedStateType) => {
@@ -15,10 +15,10 @@ let mapStateToProps = (state: CombinedStateType) => {
 let mapDispatchToProps = (dispatch: DispatchType) => {
     return {
         addPost: () => {
-            dispatch(addPostAC())
+            dispatch(addPost())
         },
         updateNewPostText: (text: string) => {
-            dispatch(updateNewPostTextAC(text))
+            dispatch(updateNewPostText(text))
         }
     }
 }

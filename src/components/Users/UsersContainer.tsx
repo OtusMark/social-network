@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {CombinedStateType, DispatchType} from "../../redux/store";
+import {CombinedStateType} from "../../redux/store";
 import {
     follow,
     setCurrentPage, setIsFetching,
@@ -23,28 +23,30 @@ type UsersAPIPropsType = {
     unfollow: (userId: number) => void
     setUsers: (users: Array<UserType>) => void
     setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (count: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
+    setUsersTotalCount: (count: number) => void
+    setIsFetching: (isFetching: boolean) => void
 }
 
-export class UsersAPI extends React.Component<UsersAPIPropsType, any> {
+export class UsersAPI extends React.Component<UsersAPIPropsType, {}> {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data.items)
-            this.props.setTotalUsersCount(response.data.totalCount)
-        })
+        this.props.setIsFetching(true)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setIsFetching(false)
+                this.props.setUsers(response.data.items)
+                this.props.setUsersTotalCount(response.data.totalCount)
+            })
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.toggleIsFetching(true)
+        this.props.setIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data.items)
-        })
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setIsFetching(false)
+                this.props.setUsers(response.data.items)
+            })
     }
 
     render() {
