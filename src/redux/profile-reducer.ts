@@ -1,3 +1,6 @@
+import {DispatchType} from "./store";
+import {usersAPI} from "../api/api";
+
 export type PostType = {
     id: number
     post: string
@@ -62,6 +65,7 @@ export const profileReducer = (state: profileStateType = initialState, action: P
     }
 }
 
+// Action creators
 export const addPost = () => ({type: ADD_POST} as const)
 
 export const updateNewPostText = (text: string) => ({
@@ -71,5 +75,14 @@ export const updateNewPostText = (text: string) => ({
 export const setUserProfile = (profile: any) => ({
     type: SET_USER_PROFILE, profile
 } as const)
+
+// Thunk creators
+export const getUserProfile = (userId: number) => (dispatch: DispatchType) => {
+    usersAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfile(response.data))
+        })
+
+}
 
 

@@ -1,3 +1,6 @@
+import {authAPI} from "../api/api";
+import {DispatchType} from "./store";
+
 export type AuthStateType = typeof initialState
 
 export type AuthActionsType =
@@ -30,4 +33,14 @@ export const setAuthUserData = (id: number, email: string, login: string) => ({t
         email,
         login
     }} as const)
+
+export const getAuthUserData = () => (dispatch: DispatchType) => {
+    authAPI.getMe()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                let {id, email, login} = response.data.data
+                dispatch(setAuthUserData(id, email, login))
+            }
+        })
+}
 
