@@ -3,14 +3,16 @@ import s from './Dialogs.module.scss'
 import {DialogsItem} from "./DialogsItem/DialogsItem";
 import {Messages} from "./Messages/Messages";
 import {dialogsStateType, DialogsType, MessagesType} from "../../redux/dialogs-reducer";
+import { Redirect } from 'react-router-dom';
 
-type DialogsPropsType = {
+type PropsType = {
     NewMessageChange: (body: string) => void
     SendMessage: () => void
     dialogsPage: dialogsStateType
+    isAuth: boolean
 }
 
-export const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs = (props: PropsType) => {
 
     let state = props.dialogsPage
 
@@ -26,6 +28,9 @@ export const Dialogs = (props: DialogsPropsType) => {
         let body = e.target.value
         props.NewMessageChange(body)
     }
+
+    // Redirect to login page if the user is logged out
+    if (!props.isAuth) return <Redirect to={'/login'}/>
 
     return (
         <div className={s.dialogs}>
