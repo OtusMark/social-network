@@ -10,7 +10,7 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 
-type UsersAPIPropsType = {
+type PropsType = {
     users: Array<UserType>
     pageSize: number
     totalUsersCount: number
@@ -23,7 +23,7 @@ type UsersAPIPropsType = {
     getUsers: (currentPage: number, pageSize: number) => void
 }
 
-export class UsersAPI extends React.Component<UsersAPIPropsType, {}> {
+class UsersContainerClass extends React.Component<PropsType, {}> {
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
@@ -67,7 +67,7 @@ export const UsersContainer = connect(mapStateToProps, {
     setCurrentPage,
     toggleIsFollowingProgress,
     getUsers,
-})(UsersAPI)
+})(UsersContainerClass)
 
 // let mapDispatchToProps = (dispatch: DispatchType) => {
 //     return {
