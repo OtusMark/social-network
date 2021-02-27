@@ -9,6 +9,8 @@ import {
 } from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type PropsType = {
     users: Array<UserType>
@@ -61,14 +63,28 @@ let mapStateToProps = (state: CombinedStateType) => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setCurrentPage,
-    toggleIsFollowingProgress,
-    getUsers,
-})(UsersContainerClass)
+export const UsersContainer = compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        follow,
+        unfollow,
+        setCurrentPage,
+        toggleIsFollowingProgress,
+        getUsers,
+    }),
+    withAuthRedirect,
+)(UsersContainerClass)
 
+// Compose is alternative to writing the hoc hell, like in the line below.
+// export const UsersContainer = withAuthRedirect(connect(mapStateToProps, {
+//     follow,
+//     unfollow,
+//     setCurrentPage,
+//     toggleIsFollowingProgress,
+//     getUsers,
+// })(UsersContainerClass))
+
+// Instead of writing mapDispatchToProps like below, we simply can send the action creators
+// as an object like in the code above
 // let mapDispatchToProps = (dispatch: DispatchType) => {
 //     return {
 //         follow: (userId: number) => {
