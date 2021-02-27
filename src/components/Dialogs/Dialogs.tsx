@@ -9,7 +9,6 @@ type PropsType = {
     NewMessageChange: (body: string) => void
     SendMessage: () => void
     dialogsPage: dialogsStateType
-    isAuth: boolean
 }
 
 export const Dialogs = (props: PropsType) => {
@@ -28,9 +27,6 @@ export const Dialogs = (props: PropsType) => {
         let body = e.target.value
         props.NewMessageChange(body)
     }
-
-    // Redirect to login page if the user is logged out
-    if (!props.isAuth) return <Redirect to={'/login'}/>
 
     return (
         <div className={s.dialogs}>

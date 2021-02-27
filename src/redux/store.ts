@@ -19,11 +19,11 @@ export type CombinedStateType = CombinedState<{
 }>
 
 // Redux
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer
 })
 
-export let store = createStore(reducers, applyMiddleware(ThunkMiddleware))
+export let store = createStore(rootReducer, applyMiddleware(ThunkMiddleware))

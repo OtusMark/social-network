@@ -5,8 +5,7 @@ import {profileStateType} from "../../redux/profile-reducer";
 import {Redirect} from "react-router-dom";
 
 type PropsType = {
-    children?: ReactNode
-    profile: profileStateType
+    profile: profileStateType | null
 }
 
 export const Profile = (props: PropsType) => {
