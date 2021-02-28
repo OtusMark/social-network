@@ -20,8 +20,23 @@ export const usersAPI = {
     unfollow(userId: number) {
         return instance.delete(`follow/${userId}`)
     },
+    // Backward compatibility for components that use usersAPI instead of profileAPI
+    getProfile(userId: number) {
+        console.warn('Obsolete method. Please use profileAPI object')
+        return profileAPI.getProfile(userId)
+    }
+}
+
+export const profileAPI = {
     getProfile(userId: number) {
         return instance.get(`profile/${userId}`)
+    },
+    getStatus(userId: number) {
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus(newStatus: string) {
+        // 'put' requires JSON file as a second argument
+        return instance.put(`profile/status`, {status: newStatus})
     }
 }
 
