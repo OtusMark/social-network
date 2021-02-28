@@ -12,6 +12,7 @@ export class ProfileStatus extends React.Component<propsType, {}> {
         status: this.props.status
     }
 
+    // Synchronizing the global value of user status with local, to prevent empty input.
     componentDidUpdate(prevProps: Readonly<propsType>, prevState: Readonly<{}>, snapshot?: any) {
         if (prevProps.status !== this.props.status) {
             this.setState({

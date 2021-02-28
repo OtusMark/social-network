@@ -4,7 +4,7 @@ import {DialogsActionsType, dialogsReducer, dialogsStateType} from "./dialogs-re
 import {UsersActionsType, usersReducer, UsersStateType} from "./users-reducer";
 import {AuthActionsType, authReducer, AuthStateType} from "./auth-reducer";
 import ThunkMiddleware from "redux-thunk"
-
+import { reducer as formReducer } from 'redux-form'
 
 export type CombinedActionsType =
     DialogsActionsType | ProfileActionsType | UsersActionsType | AuthActionsType
@@ -19,11 +19,12 @@ export type CombinedStateType = CombinedState<{
 }>
 
 // Redux
-let rootReducer = combineReducers({
+const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 })
 
-export let store = createStore(rootReducer, applyMiddleware(ThunkMiddleware))
+export const store = createStore(rootReducer, applyMiddleware(ThunkMiddleware))
