@@ -8,8 +8,12 @@ type PropsType = {
 export const LoginForm: React.FC<PropsType> = ({onSubmitHandler}) => {
     return (
         <Form onSubmit={values => onSubmitHandler(values)}>
-            {({handleSubmit}) => (
-                <form onSubmit={handleSubmit}>
+            {({handleSubmit, form}) => (
+                <form onSubmit={async event => {
+                    await handleSubmit(event)
+                    form.reset()
+                    console.log('works')
+                }}>
                     <div>
                         <Field placeholder={'Login'} name={'login'} component={'input'}/>
                     </div>

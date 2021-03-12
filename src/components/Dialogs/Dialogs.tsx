@@ -55,26 +55,23 @@ const AddMessageForm = (props: any) => {
         <Form
             // initialValues={{newMessageBody: 'Hey'}}
             onSubmit={values => {
-                props.onSendMessageClick(values.newMessageBody)
-                console.log(values.newMessageBody)
-            }}
-            keepDirtyOnReinitialize
-            render={({handleSubmit, form, values}) => (
+                props.onSendMessageClick(values.newMessage)
+                console.log(values.newMessage)
+            }}>
+            {({handleSubmit, form}) => (
                 <form onSubmit={async event => {
                     await handleSubmit(event)
                     form.reset()
                     console.log('works')
                 }}>
                     <div>
-                        <Field component={'textarea'} name={'newMessageBody'} placeholder={'Enter your message'}/>
+                        <Field component={'textarea'} name={'newMessage'} placeholder={'Enter your message'}/>
                     </div>
                     <div>
                         <button>Send</button>
                     </div>
                 </form>
             )}
-        >
-
         </Form>
     )
 }
