@@ -1,5 +1,5 @@
 import React from 'react';
-import {sendMessageAC, updateNewMessageBodyAC} from "../../redux/dialogs-reducer";
+import {sendMessageAC} from "../../redux/dialogs-reducer";
 import {DispatchType, CombinedStateType} from "../../redux/store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
@@ -14,11 +14,11 @@ let mapStateToProps = (state: CombinedStateType) => {
 
 let mapDispatchToProps = (dispatch: DispatchType) => {
     return {
-        NewMessageChange: (body: string) => {
-            dispatch(updateNewMessageBodyAC(body))
-        },
-        SendMessage: () => {
-            dispatch(sendMessageAC())
+        // NewMessageChange: (body: string) => {
+        //     dispatch(updateNewMessageBodyAC(body))
+        // },
+        SendMessage: (message: string) => {
+            dispatch(sendMessageAC(message))
         }
     }
 }

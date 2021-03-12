@@ -1,32 +1,36 @@
-import React, {FormEventHandler} from "react";
-import {reduxForm, Field, InjectedFormProps} from "redux-form";
+import React from "react";
+import {Form, Field} from 'react-final-form'
 
-// I have no idea how to type the redux-form
-type PropsType = InjectedFormProps & {
-    handleSubmit: FormEventHandler<HTMLFormElement> | undefined
+type PropsType = {
+    onSubmitHandler: (formData: any) => void
 }
 
-const LoginForm: React.FC<PropsType> = ({handleSubmit}) => {
+export const LoginForm: React.FC<PropsType> = ({onSubmitHandler}) => {
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field placeholder={'Login'} name={'login'} component={'input'}/>
-            </div>
-            <div>
-                <Field placeholder={'Password'} name={'password'} component={'input'}/>
-            </div>
-            <div>
-                <Field type={'checkbox'} name={'rememberMe'} component={'input'}/>
-                <span>Remember me</span>
-            </div>
-            <div>
-                <button>Login</button>
-            </div>
-        </form>
+        <Form onSubmit={values => onSubmitHandler(values)}>
+            {({handleSubmit}) => (
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <Field placeholder={'Login'} name={'login'} component={'input'}/>
+                    </div>
+                    <div>
+                        <Field placeholder={'Password'} name={'password'} component={'input'}/>
+                    </div>
+                    <div>
+                        <Field type={'checkbox'} name={'rememberMe'} component={'input'}/>
+                        <span>Remember me</span>
+                    </div>
+                    <div>
+                        <button>Login</button>
+                    </div>
+                </form>
+            )}
+        </Form>
     )
 }
 
-export const LoginReduxForm = reduxForm({
-    // Unique name for the form
-    form: 'login'
-})(LoginForm)
+// React final form notes. (https://final-form.org/react)
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Field is replacing the standard input. component={'input'} must be added as an attribute.
+// onSubmit returns the values of the submitted form.
+// handleSubmit is a prop of the React final form library.
