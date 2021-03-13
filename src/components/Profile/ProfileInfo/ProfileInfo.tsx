@@ -13,7 +13,6 @@ export const ProfileInfo = (props: propsType) => {
         return <Preloader/>
     }
 
-
     return (
         <div>
             <div>

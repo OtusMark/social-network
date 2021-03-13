@@ -14,9 +14,6 @@ let mapStateToProps = (state: CombinedStateType) => {
 
 let mapDispatchToProps = (dispatch: DispatchType) => {
     return {
-        // NewMessageChange: (body: string) => {
-        //     dispatch(updateNewMessageBodyAC(body))
-        // },
         SendMessage: (message: string) => {
             dispatch(sendMessageAC(message))
         }

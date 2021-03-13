@@ -6,7 +6,6 @@ import {dialogsStateType, DialogsType, MessagesType} from "../../redux/dialogs-r
 import {Field, Form} from 'react-final-form';
 
 type PropsType = {
-    // NewMessageChange: (body: string) => void
     SendMessage: (message: string) => void
     dialogsPage: dialogsStateType
 }
@@ -23,46 +22,38 @@ export const Dialogs = (props: PropsType) => {
                                                                             key={messages.id}
                                                                             message={messages.message}/>)
 
-    // let newMessageBody = state.newMessageBody
-
     let onSendMessageClick = (message: string) => {
         props.SendMessage(message)
     }
-
-    // let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    //     let body = e.target.value
-    //     props.NewMessageChange(body)
-    // }
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsList}>
-                {dialogsElements}
+                <div>{dialogsElements}</div>
             </div>
             <div className={s.chat}>
                 <div>{messages}</div>
                 <AddMessageForm
-                    // newMessageBody={newMessageBody}
                     onSendMessageClick={onSendMessageClick}/>
             </div>
         </div>
     )
 }
 
+// Add Message form component
+type FormPropsType = {
+    onSendMessageClick: (message: string) => void
+}
 
-const AddMessageForm = (props: any) => {
+const AddMessageForm: React.FC<FormPropsType> = ({onSendMessageClick}) => {
     return (
         <Form
-            // initialValues={{newMessageBody: 'Hey'}}
             onSubmit={values => {
-                props.onSendMessageClick(values.newMessage)
-                console.log(values.newMessage)
-            }}>
-            {({handleSubmit, form}) => (
+                onSendMessageClick(values.newMessage)
+            }}
+            render={({handleSubmit, form}) => (
                 <form onSubmit={async event => {
                     await handleSubmit(event)
                     form.reset()
-                    console.log('works')
                 }}>
                     <div>
                         <Field component={'textarea'} name={'newMessage'} placeholder={'Enter your message'}/>
@@ -71,7 +62,7 @@ const AddMessageForm = (props: any) => {
                         <button>Send</button>
                     </div>
                 </form>
-            )}
+            )}>
         </Form>
     )
 }
