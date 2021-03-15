@@ -3,7 +3,8 @@ import s from './MyPosts.module.scss'
 import {Post} from "./Post/Post";
 import {PostDataType} from "../../../redux/profile-reducer";
 import {Field, Form} from "react-final-form";
-import {composeValidators, maxLengthCreator, required} from "../../../utils/validators/validators";
+import {composeValidators, maxLength} from "../../../utils/validators/validators";
+import {TextArea} from "../../common/FormControls/FormControls";
 
 type MyPostsPropsType = {
     addPost: (newPostText: string) => void
@@ -12,7 +13,7 @@ type MyPostsPropsType = {
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
-    let myPosts = props.posts.map(post => <Post id={post.id} post={post.post} likes={post.likes}/>)
+    let myPosts = props.posts.map(post => <Post key={post.id} id={post.id} post={post.post} likes={post.likes}/>)
 
 
     let onAddPost = (newPostText: string) => {
@@ -46,7 +47,10 @@ const NewPostForm: React.FC<FormPropsType> = ({onAddPost}) => {
                     form.reset()
                 }}>
                     <div>
-                        <Field component={'textarea'} name={'newPost'} placeholder={'Add new post'} validate={composeValidators(required, maxLengthCreator(30))}/>
+                        <Field component={TextArea}
+                               name={'newPost'}
+                               placeholder={'Add new post'}
+                               validate={composeValidators(maxLength(150))}/>
                     </div>
                     <div>
                         <button>Send</button>

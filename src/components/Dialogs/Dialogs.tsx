@@ -4,6 +4,8 @@ import {DialogsItem} from "./DialogsItem/DialogsItem";
 import {Messages} from "./Messages/Messages";
 import {dialogsStateType, DialogsType, MessagesType} from "../../redux/dialogs-reducer";
 import {Field, Form} from 'react-final-form';
+import {TextArea} from "../common/FormControls/FormControls";
+import {composeValidators, maxLength} from "../../utils/validators/validators";
 
 type PropsType = {
     SendMessage: (message: string) => void
@@ -56,7 +58,10 @@ const AddMessageForm: React.FC<FormPropsType> = ({onSendMessageClick}) => {
                     form.reset()
                 }}>
                     <div>
-                        <Field component={'textarea'} name={'newMessage'} placeholder={'Enter your message'}/>
+                        <Field component={TextArea}
+                               name={'newMessage'}
+                               placeholder={'Enter your message'}
+                               validate={composeValidators(maxLength(15))}/>
                     </div>
                     <div>
                         <button>Send</button>

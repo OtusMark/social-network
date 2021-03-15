@@ -21,8 +21,7 @@ let mapDispatchToProps = (dispatch: DispatchType) => {
 }
 
 export const DialogsContainer = compose<React.ComponentType>(
-    connect(mapStateToProps, mapDispatchToProps),
-    withAuthRedirect
-)(Dialogs)
+    connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs)
+
 // Compose is alternative to writing the hoc hell, like in the line below.
 // export const DialogsContainer = withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Dialogs));
