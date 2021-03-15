@@ -25,6 +25,7 @@ let initialState = {
 }
 
 export const authReducer = (state: AuthStateType = initialState, action: AuthActionsType) => {
+
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -56,21 +57,16 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
 
 // Action creators
 export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
-    type: SET_USER_DATA, payload: {
-        userId,
-        email,
-        login,
-        isAuth
-    }
+    type: SET_USER_DATA, payload: {userId, email, login, isAuth}
 } as const)
 
 export const setAuthError = (errorMessages: Array<string>) => ({type: SET_AUTH_ERROR, errorMessages} as const)
 
 export const clearAuthError = () => ({type: CLEAR_AUTH_ERROR} as const)
 
-// thunks
+// Thunk creators
 export const getAuthUserData = () => (dispatch: DispatchType) => {
-    authAPI.getMe()
+    return authAPI.getMe()
         .then(response => {
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
@@ -80,7 +76,6 @@ export const getAuthUserData = () => (dispatch: DispatchType) => {
 }
 
 export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: DispatchType) => {
-
     authAPI.login(email, password, rememberMe)
         .then(response => {
             if (response.data.resultCode === 0) {
