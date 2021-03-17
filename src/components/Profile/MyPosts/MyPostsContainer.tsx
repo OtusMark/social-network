@@ -1,11 +1,11 @@
 import React from 'react';
 
 import {MyPosts} from "./MyPosts";
-import {CombinedStateType, DispatchType} from "../../../redux/store";
-import {addPost} from "../../../redux/profile-reducer";
+import {AppRootStateType, DispatchType} from "../../../redux/store";
+import {addPost} from "../../../redux/reducers/profile-reducer";
 import {connect} from "react-redux";
 
-let mapStateToProps = (state: CombinedStateType) => {
+let mapStateToProps = (state: AppRootStateType) => {
     return {
         posts: state.profilePage.posts,
     }

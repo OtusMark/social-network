@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Post.module.scss'
-import {PostType} from "../../../../redux/profile-reducer";
+import {PostType} from "../../../../redux/reducers/profile-reducer";
 
 type PostPropsType = PostType;
 

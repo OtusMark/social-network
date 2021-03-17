@@ -1,5 +1,5 @@
 import React from "react";
-import {MessagesType} from "../../../redux/dialogs-reducer";
+import {MessagesType} from "../../../redux/reducers/dialogs-reducer";
 
 type MessagePropsType = MessagesType;
 

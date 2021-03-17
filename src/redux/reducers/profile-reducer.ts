@@ -1,5 +1,5 @@
-import {DispatchType} from "./store";
-import {profileAPI, usersAPI} from "../api/api";
+import {DispatchType} from "../store";
+import {profileAPI, usersAPI} from "../../api/api";
 
 export type PostType = {
     id: number

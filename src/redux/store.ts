@@ -1,17 +1,17 @@
 import {applyMiddleware, CombinedState, combineReducers, createStore} from "redux";
-import {ProfileActionsType, profileReducer, profileStateType} from "./profile-reducer";
-import {DialogsActionsType, dialogsReducer, dialogsStateType} from "./dialogs-reducer";
-import {UsersActionsType, usersReducer, UsersStateType} from "./users-reducer";
-import {AuthActionsType, authReducer, AuthStateType} from "./auth-reducer";
+import {ProfileActionsType, profileReducer, profileStateType} from "./reducers/profile-reducer";
+import {DialogsActionsType, dialogsReducer, dialogsStateType} from "./reducers/dialogs-reducer";
+import {UsersActionsType, usersReducer, UsersStateType} from "./reducers/users-reducer";
+import {AuthActionsType, authReducer, AuthStateType} from "./reducers/auth-reducer";
 import ThunkMiddleware from "redux-thunk"
-import {AppActionsType, appReducer, AppStateType} from "./app-reducer";
+import {AppActionsType, appReducer, AppStateType} from "./reducers/app-reducer";
 
 export type CombinedActionsType =
     DialogsActionsType | ProfileActionsType | UsersActionsType | AuthActionsType | AppActionsType
 
 export type DispatchType = (action: CombinedActionsType) =>  any
 
-export type CombinedStateType = CombinedState<{
+export type AppRootStateType = CombinedState<{
     profilePage: profileStateType
     dialogsPage: dialogsStateType
     usersPage: UsersStateType

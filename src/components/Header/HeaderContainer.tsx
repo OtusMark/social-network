@@ -1,8 +1,8 @@
 import React from 'react';
 import {Header} from "./Header";
 import {connect} from "react-redux";
-import {logout} from "../../redux/auth-reducer";
-import {CombinedStateType} from "../../redux/store";
+import {logout} from "../../redux/reducers/auth-reducer";
+import {AppRootStateType} from "../../redux/store";
 
 class HeaderContainer extends React.Component<any, {}> {
     render() {
@@ -12,7 +12,7 @@ class HeaderContainer extends React.Component<any, {}> {
     }
 }
 
-const mapStateToProps = (state: CombinedStateType) =>  ({
+const mapStateToProps = (state: AppRootStateType) =>  ({
     isAuth: state.auth.isAuth,
     login: state.auth.login
 })

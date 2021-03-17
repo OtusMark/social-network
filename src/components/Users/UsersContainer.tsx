@@ -1,16 +1,22 @@
 import React from "react";
 import {connect} from "react-redux";
-import {CombinedStateType} from "../../redux/store";
+import {AppRootStateType} from "../../redux/store";
 import {
     follow,
-    getUsers,
+    requestUsers,
     setCurrentPage, toggleIsFollowingProgress, unfollow,
     UserType
-} from "../../redux/users-reducer";
+} from "../../redux/reducers/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    CurrentPageSelector, FollowingInProgressSelector, IsFetchingSelector,
+    PageSizeSelector,
+    TotalUsersCountSelector,
+    UsersSelector, UsersSelectorR
+} from "../../redux/selectors/users-selectors";
 
 type PropsType = {
     users: Array<UserType>
@@ -52,14 +58,25 @@ class UsersContainerClass extends React.Component<PropsType, {}> {
     }
 }
 
-let mapStateToProps = (state: CombinedStateType) => {
+// let mapStateToProps = (state: CombinedStateType) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress
+//     }
+// }
+
+let mapStateToProps = (state: AppRootStateType) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        users: UsersSelectorR(state),
+        pageSize: PageSizeSelector(state),
+        totalUsersCount: TotalUsersCountSelector(state),
+        currentPage: CurrentPageSelector(state),
+        isFetching: IsFetchingSelector(state),
+        followingInProgress: FollowingInProgressSelector(state)
     }
 }
 
@@ -69,7 +86,7 @@ export const UsersContainer = compose<React.ComponentType>(
         unfollow,
         setCurrentPage,
         toggleIsFollowingProgress,
-        getUsers,
+        getUsers: requestUsers,
     }),
     withAuthRedirect,
 )(UsersContainerClass)

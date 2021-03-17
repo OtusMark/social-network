@@ -1,8 +1,8 @@
 import React from 'react'
 import {LoginForm} from "./LoginForm/LoginForm";
 import {connect} from "react-redux";
-import {login} from "../../redux/auth-reducer";
-import {CombinedStateType, DispatchType} from "../../redux/store";
+import {login} from "../../redux/reducers/auth-reducer";
+import {AppRootStateType, DispatchType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
 
 type LoginPagePropsType = any & {
@@ -33,7 +33,7 @@ const LoginPage = (props: LoginPagePropsType) => {
     )
 }
 
-const mapStateToProps = (state: CombinedStateType) => ({
+const mapStateToProps = (state: AppRootStateType) => ({
     isAuth: state.auth.isAuth,
     authError: state.auth.authError
 })

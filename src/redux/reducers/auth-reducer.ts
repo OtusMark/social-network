@@ -1,5 +1,5 @@
-import {authAPI} from "../api/api";
-import {DispatchType} from "./store";
+import {authAPI} from "../../api/api";
+import {DispatchType} from "../store";
 
 export type AuthStateType = typeof initialState
 

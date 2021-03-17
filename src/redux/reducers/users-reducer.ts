@@ -1,5 +1,5 @@
-import {usersAPI} from "../api/api";
-import {DispatchType} from "./store";
+import {usersAPI} from "../../api/api";
+import {DispatchType} from "../store";
 
 export type UserType = {
     name: string
@@ -108,11 +108,10 @@ export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) =
 } as const)
 
 // Thunk creators
-export const getUsers = (currentPage: number, pageSize: number) => {
+export const requestUsers = (requestedPage: number, pageSize: number) => {
     return (dispatch: DispatchType) => {
         dispatch(toggleIsFetching(true))
-
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
+        usersAPI.getUsers(requestedPage, pageSize).then(data => {
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setUsersTotalCount(data.totalCount))

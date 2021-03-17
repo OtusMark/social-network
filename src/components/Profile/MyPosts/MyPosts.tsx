@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.scss'
 import {Post} from "./Post/Post";
-import {PostDataType} from "../../../redux/profile-reducer";
+import {PostDataType} from "../../../redux/reducers/profile-reducer";
 import {Field, Form} from "react-final-form";
 import {composeValidators, maxLength} from "../../../utils/validators/validators";
 import {TextArea} from "../../common/FormControls/FormControls";

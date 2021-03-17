@@ -9,8 +9,8 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {initializeApp} from "./redux/app-reducer";
-import {CombinedStateType} from "./redux/store";
+import {initializeApp} from "./redux/reducers/app-reducer";
+import {AppRootStateType} from "./redux/store";
 import {Preloader} from "./components/common/Preloader/Preloader";
 
 type PropsType = any
@@ -46,7 +46,7 @@ class App extends React.Component<PropsType, any> {
     }
 }
 
-const mapStateToProps = (state: CombinedStateType) => ({
+const mapStateToProps = (state: AppRootStateType) => ({
     initialized: state.app.initialized
 })
 

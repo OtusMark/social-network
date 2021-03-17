@@ -1,4 +1,4 @@
-import {DispatchType} from "./store";
+import {DispatchType} from "../store";
 import {getAuthUserData} from "./auth-reducer";
 
 export type AppStateType = typeof initialState

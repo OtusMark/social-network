@@ -1,12 +1,12 @@
 import React from 'react';
-import {sendMessageAC} from "../../redux/dialogs-reducer";
-import {DispatchType, CombinedStateType} from "../../redux/store";
+import {sendMessageAC} from "../../redux/reducers/dialogs-reducer";
+import {DispatchType, AppRootStateType} from "../../redux/store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
-let mapStateToProps = (state: CombinedStateType) => {
+let mapStateToProps = (state: AppRootStateType) => {
     return {
         dialogsPage: state.dialogsPage,
     }
