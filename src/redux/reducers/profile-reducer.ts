@@ -1,28 +1,10 @@
-import {DispatchType} from "../store";
-import {profileAPI, usersAPI} from "../../api/api";
+import {profileAPI} from "../../api/api";
+import {Dispatch} from "redux";
 
-export type PostType = {
-    id: number
-    post: string
-    likes: number
-}
-
-export type PostDataType = Array<PostType>
-
-export type profileStateType = {
-    posts: PostDataType
-    profile: {} | null
-    status: string
-}
-
-export type ProfileActionsType =
-    ReturnType<typeof addPost>
-    | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof setStatus>
-
-export const ADD_POST = 'ADD-POST'
-export const SET_USER_PROFILE = 'SET_USER_PROFILE'
-export const SET_STATUS = 'SET_STATUS'
+const ADD_POST = 'profile/ADD_POST'
+const DELETE_POST = 'profile/DELETE_POST'
+const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
+const SET_STATUS = 'profile/SET_STATUS'
 
 let initialState: profileStateType = {
     posts: [
@@ -36,17 +18,22 @@ let initialState: profileStateType = {
     status: ''
 }
 
+// Reducer
 export const profileReducer = (state: profileStateType = initialState, action: ProfileActionsType) => {
     switch (action.type) {
         case ADD_POST:
-            let newPost: PostType = {
-                id: 6,
-                post: action.newPostText,
-                likes: 0
-            }
             return {
                 ...state,
-                posts: [...state.posts, newPost],
+                posts: [...state.posts, {
+                    id: 6,
+                    post: action.newPostText,
+                    likes: 0
+                }],
+            }
+        case DELETE_POST:
+            return {
+                ...state,
+                posts: state.posts.filter(post => post.id !== action.postId),
             }
         case SET_USER_PROFILE: {
             return {
@@ -66,6 +53,8 @@ export const profileReducer = (state: profileStateType = initialState, action: P
 // Action creators
 export const addPost = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
 
+export const deletePost = (postId: number) => ({type: DELETE_POST, postId} as const)
+
 export const setUserProfile = (profile: any) => ({
     type: SET_USER_PROFILE, profile
 } as const)
@@ -75,21 +64,21 @@ export const setStatus = (status: string) => ({
 } as const)
 
 // Thunk creators
-export const getUserProfile = (userId: number) => (dispatch: DispatchType) => {
+export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
     profileAPI.getProfile(userId)
         .then(response => {
             dispatch(setUserProfile(response.data))
         })
 }
 
-export const getProfileStatus = (userId: number) => (dispatch: DispatchType) => {
+export const getProfileStatus = (userId: number) => (dispatch: Dispatch) => {
     profileAPI.getStatus(userId)
         .then(response => {
             dispatch(setStatus(response.data))
         })
 }
 
-export const updateProfileStatus = (newStatus: string) => (dispatch: DispatchType) => {
+export const updateProfileStatus = (newStatus: string) => (dispatch: Dispatch) => {
     profileAPI.updateStatus(newStatus)
         .then(response => {
             if (response.data.resultCode === 0) {
@@ -97,6 +86,27 @@ export const updateProfileStatus = (newStatus: string) => (dispatch: DispatchTyp
             }
         })
 }
+
+// Types
+export type PostType = {
+    id: number
+    post: string
+    likes: number
+}
+
+export type PostDataType = Array<PostType>
+
+export type profileStateType = {
+    posts: PostDataType
+    profile: {} | null
+    status: string
+}
+
+export type ProfileActionsType =
+    ReturnType<typeof addPost>
+    | ReturnType<typeof deletePost>
+    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatus>
 
 
 

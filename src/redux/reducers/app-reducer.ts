@@ -1,12 +1,7 @@
-import {DispatchType} from "../store";
 import {getAuthUserData} from "./auth-reducer";
+import {Action, Dispatch} from "redux";
 
-export type AppStateType = typeof initialState
-
-export type AppActionsType =
-    ReturnType<typeof setAppAsInitialized>
-
-const APP_IS_INITIALIZED = 'APP_IS_INITIALIZED'
+const APP_IS_INITIALIZED = 'app/APP_IS_INITIALIZED'
 
 let initialState = {
     initialized: false
@@ -29,8 +24,7 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 export const setAppAsInitialized = () => ({type: APP_IS_INITIALIZED} as const)
 
 // Thunk creators
-export const initializeApp = () => (dispatch: DispatchType) => {
-    // @ts-ignore
+export const initializeApp = () => (dispatch: Dispatch<any>) => {
     let promise = dispatch(getAuthUserData())
 
     Promise.all([promise])
@@ -38,3 +32,9 @@ export const initializeApp = () => (dispatch: DispatchType) => {
             dispatch(setAppAsInitialized())
         })
 }
+
+// Types
+export type AppStateType = typeof initialState
+
+export type AppActionsType =
+    ReturnType<typeof setAppAsInitialized>

@@ -1,16 +1,9 @@
 import {authAPI} from "../../api/api";
-import {DispatchType} from "../store";
+import {Dispatch} from "redux";
 
-export type AuthStateType = typeof initialState
-
-export type AuthActionsType =
-    ReturnType<typeof setAuthUserData> |
-    ReturnType<typeof setAuthError> |
-    ReturnType<typeof clearAuthError>
-
-const SET_USER_DATA = 'SET_USER_DATA'
-const SET_AUTH_ERROR = 'SET_AUTH_ERROR'
-const CLEAR_AUTH_ERROR = 'CLEAR_AUTH_ERROR'
+const SET_USER_DATA = 'auth/SET_USER_DATA'
+const SET_AUTH_ERROR = 'auth/SET_AUTH_ERROR'
+const CLEAR_AUTH_ERROR = 'auth/CLEAR_AUTH_ERROR'
 
 let initialState = {
     userId: null,
@@ -65,7 +58,7 @@ export const setAuthError = (errorMessages: Array<string>) => ({type: SET_AUTH_E
 export const clearAuthError = () => ({type: CLEAR_AUTH_ERROR} as const)
 
 // Thunk creators
-export const getAuthUserData = () => (dispatch: DispatchType) => {
+export const getAuthUserData = () => (dispatch: Dispatch) => {
     return authAPI.getMe()
         .then(response => {
             if (response.data.resultCode === 0) {
@@ -75,12 +68,11 @@ export const getAuthUserData = () => (dispatch: DispatchType) => {
         })
 }
 
-export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: DispatchType) => {
+export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<any>) => {
     authAPI.login(email, password, rememberMe)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(clearAuthError())
-                // @ts-ignore
                 dispatch(getAuthUserData())
             } else {
                 dispatch(setAuthError(response.data.messages))
@@ -89,7 +81,7 @@ export const login = (email: string, password: string, rememberMe: boolean) => (
         })
 }
 
-export const logout = () => (dispatch: DispatchType) => {
+export const logout = () => (dispatch: Dispatch) => {
     authAPI.logout()
         .then(response => {
             if (response.data.resultCode === 0) {
@@ -99,3 +91,10 @@ export const logout = () => (dispatch: DispatchType) => {
         })
 }
 
+// Types
+export type AuthStateType = typeof initialState
+
+export type AuthActionsType =
+    ReturnType<typeof setAuthUserData> |
+    ReturnType<typeof setAuthError> |
+    ReturnType<typeof clearAuthError>
