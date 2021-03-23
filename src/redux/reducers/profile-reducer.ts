@@ -64,27 +64,24 @@ export const setStatus = (status: string) => ({
 } as const)
 
 // Thunk creators
-export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
-    profileAPI.getProfile(userId)
-        .then(response => {
-            dispatch(setUserProfile(response.data))
-        })
+export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.getProfile(userId)
+
+    dispatch(setUserProfile(response.data))
 }
 
-export const getProfileStatus = (userId: number) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId)
-        .then(response => {
-            dispatch(setStatus(response.data))
-        })
+export const getProfileStatus = (userId: number) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.getStatus(userId)
+
+    dispatch(setStatus(response.data))
 }
 
-export const updateProfileStatus = (newStatus: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(newStatus)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(newStatus))
-            }
-        })
+export const updateProfileStatus = (newStatus: string) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.updateStatus(newStatus)
+
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(newStatus))
+    }
 }
 
 // Types

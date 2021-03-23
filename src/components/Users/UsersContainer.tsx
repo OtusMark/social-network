@@ -4,7 +4,9 @@ import {AppRootStateType} from "../../redux/store";
 import {
     follow,
     requestUsers,
-    setCurrentPage, toggleIsFollowingProgress, unfollow,
+    setCurrentPage,
+    toggleIsFollowingProgress,
+    unfollow,
     UserType
 } from "../../redux/reducers/users-reducer";
 import {Users} from "./Users";
@@ -12,33 +14,26 @@ import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {
-    CurrentPageSelector, FollowingInProgressSelector, IsFetchingSelector,
+    CurrentPageSelector,
+    FollowingInProgressSelector,
+    IsFetchingSelector,
     PageSizeSelector,
     TotalUsersCountSelector,
-    UsersSelector, UsersSelectorR
+    UsersSelectorR
 } from "../../redux/selectors/users-selectors";
-
-type PropsType = {
-    users: Array<UserType>
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    followingInProgress: []
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-}
 
 class UsersContainerClass extends React.Component<PropsType, {}> {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        const {getUsers, currentPage, pageSize} = this.props
+
+        getUsers(currentPage, pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsers(pageNumber, this.props.pageSize)
+        const {getUsers, pageSize} = this.props
+
+        getUsers(pageNumber, pageSize)
     }
 
     render() {
@@ -68,6 +63,7 @@ class UsersContainerClass extends React.Component<PropsType, {}> {
 //         followingInProgress: state.usersPage.followingInProgress
 //     }
 // }
+// code before selectors
 
 let mapStateToProps = (state: AppRootStateType) => {
     return {
@@ -90,6 +86,20 @@ export const UsersContainer = compose<React.ComponentType>(
     }),
     withAuthRedirect,
 )(UsersContainerClass)
+
+// Types
+type PropsType = {
+    users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: []
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+}
 
 // Compose is alternative to writing the hoc hell, like in the line below.
 // export const UsersContainer = withAuthRedirect(connect(mapStateToProps, {

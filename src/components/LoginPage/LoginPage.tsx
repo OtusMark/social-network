@@ -7,6 +7,11 @@ import {Redirect} from "react-router-dom";
 
 type LoginPagePropsType = any & {
     login: (email: string, password: string, rememberMe: boolean) => { dispatch: DispatchType }
+    isAuth: boolean
+    authError: {
+        status: boolean
+        messages: Array<string>
+    }
 }
 
 type FormDataType = {
@@ -15,20 +20,20 @@ type FormDataType = {
     rememberMe: boolean
 }
 
-const LoginPage = (props: LoginPagePropsType) => {
+const LoginPage: React.FC<LoginPagePropsType> = ({login, isAuth, authError}) => {
 
     const onSubmitHandler = (formData: FormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        login(formData.email, formData.password, formData.rememberMe)
     }
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={'/profile'}/>
     }
 
     return (
         <div>
             <h2>Login</h2>
-            <LoginForm authError={props.authError} onSubmitHandler={onSubmitHandler}/>
+            <LoginForm authError={authError} onSubmitHandler={onSubmitHandler}/>
         </div>
     )
 }

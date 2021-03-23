@@ -58,19 +58,17 @@ export const setAuthError = (errorMessages: Array<string>) => ({type: SET_AUTH_E
 export const clearAuthError = () => ({type: CLEAR_AUTH_ERROR} as const)
 
 // Thunk creators
-export const getAuthUserData = () => (dispatch: Dispatch) => {
-    return authAPI.getMe()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                let {id, email, login} = response.data.data
-                dispatch(setAuthUserData(id, email, login, true))
-            }
-        })
+export const getAuthUserData = () => async (dispatch: Dispatch) => {
+    let response = await authAPI.getMe()
+
+    if (response.data.resultCode === 0) {
+        let {id, email, login} = response.data.data
+        dispatch(setAuthUserData(id, email, login, true))
+    }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<any>) => {
-    authAPI.login(email, password, rememberMe)
-        .then(response => {
+export const login = (email: string, password: string, rememberMe: boolean) => async (dispatch: Dispatch<any>) => {
+    let response = await authAPI.login(email, password, rememberMe)
             if (response.data.resultCode === 0) {
                 dispatch(clearAuthError())
                 dispatch(getAuthUserData())
@@ -78,17 +76,14 @@ export const login = (email: string, password: string, rememberMe: boolean) => (
                 dispatch(setAuthError(response.data.messages))
                 console.log(response.data.messages)
             }
-        })
 }
 
-export const logout = () => (dispatch: Dispatch) => {
-    authAPI.logout()
-        .then(response => {
+export const logout = () => async (dispatch: Dispatch) => {
+    let response = await authAPI.logout()
             if (response.data.resultCode === 0) {
                 dispatch(clearAuthError())
                 dispatch(setAuthUserData(null, null, null, false))
             }
-        })
 }
 
 // Types
