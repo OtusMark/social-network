@@ -1,9 +1,7 @@
 import React from 'react';
 import './App.scss';
 import {Navbar} from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import {UsersContainer} from "./components/Users/UsersContainer";
+import {BrowserRouter, Route} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/LoginPage/LoginPage";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -12,6 +10,10 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/reducers/app-reducer";
 import {AppRootStateType} from "./redux/store";
 import {Preloader} from "./components/common/Preloader/Preloader";
+import {withSuspense} from "./hoc/withSuspense";
+
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer").then(module => ({default: module.DialogsContainer})))
+const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer").then(module => ({default: module.UsersContainer})))
 
 type PropsType = any
 
@@ -31,14 +33,19 @@ class App extends React.Component<PropsType, any> {
                     <HeaderContainer/>
                     <Navbar/>
                     <div className='app-content'>
-                        <Route path='/profile/:userId?'
-                               render={() => <ProfileContainer/>}/>
-                        <Route path='/dialogs'
-                               render={() => <DialogsContainer/>}/>
-                        <Route path='/users'
-                               render={() => <UsersContainer/>}/>
-                        <Route path='/login'
-                               render={() => <LoginPage/>}/>
+
+                        <Route path='/profile/:userId?'>
+                            <ProfileContainer/>
+                        </Route>
+
+                        <Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
+
+                        <Route path='/users' render={withSuspense(UsersContainer)}/>
+
+                        <Route path='/login'>
+                            <LoginPage/>
+                        </Route>
+
                     </div>
                 </div>
             </BrowserRouter>

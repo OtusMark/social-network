@@ -3,7 +3,6 @@ import styles from "./Users.module.scss";
 import React from "react";
 import {UserType} from "../../redux/reducers/users-reducer";
 import {NavLink} from "react-router-dom";
-import {Paginator} from "../common/Paginator/Paginator";
 
 type PropsType = {
     user: UserType
