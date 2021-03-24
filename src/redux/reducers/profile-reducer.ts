@@ -5,6 +5,7 @@ const ADD_POST = 'profile/ADD_POST'
 const DELETE_POST = 'profile/DELETE_POST'
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
 const SET_STATUS = 'profile/SET_STATUS'
+const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS'
 
 let initialState: profileStateType = {
     posts: [
@@ -45,6 +46,12 @@ export const profileReducer = (state: profileStateType = initialState, action: P
                 ...state, status: action.status
             }
         }
+        case SAVE_PHOTO_SUCCESS: {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            }
+        }
         default:
             return state
     }
@@ -61,6 +68,10 @@ export const setUserProfile = (profile: any) => ({
 
 export const setStatus = (status: string) => ({
     type: SET_STATUS, status
+} as const)
+
+export const savePhotoSuccess = (photos: Array<HTMLImageElement>) => ({
+    type: SAVE_PHOTO_SUCCESS, photos
 } as const)
 
 // Thunk creators
@@ -84,6 +95,13 @@ export const updateProfileStatus = (newStatus: string) => async (dispatch: Dispa
     }
 }
 
+export const savePhoto = (file: HTMLImageElement) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.savePhoto(file)
+
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos))
+    }
+}
 // Types
 export type PostType = {
     id: number
@@ -104,6 +122,7 @@ export type ProfileActionsType =
     | ReturnType<typeof deletePost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
+    | ReturnType<typeof savePhotoSuccess>
 
 
 

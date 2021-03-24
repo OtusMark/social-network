@@ -37,6 +37,16 @@ export const profileAPI = {
     updateStatus(newStatus: string) {
         // 'put' requires JSON file as a second argument
         return instance.put(`profile/status`, {status: newStatus})
+    },
+    savePhoto(photoFile: any) {
+        const formData = new FormData()
+        formData.append('image', photoFile)
+
+        return instance.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 
