@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/Dialogs/Dialogs.module.scss"],"names":[],"mappings":"AAIC,oDADC,oBAAA,CAAA,YAKmB,CAJpB,4BAIC,0BAAA,CAAA,kBAAmB","file":"3.bcf246f6.chunk.css","sourcesContent":["@import \"../../styles/variables\";\r\n\r\n.dialogs {\r\n  display: flex;\r\n}\r\n\r\n.dialogsList {\r\n  display: flex;\r\n  flex-direction: row;\r\n}"]}
