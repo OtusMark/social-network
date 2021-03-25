@@ -14,15 +14,15 @@ type LoginPagePropsType = any & {
     }
 }
 
-type FormDataType = {
+export type LoginFormDataType = {
     email: string
     password: string
     rememberMe: boolean
 }
 
-const LoginPage: React.FC<LoginPagePropsType> = ({login, isAuth, authError}) => {
+const LoginPage: React.FC<LoginPagePropsType> = ({login, isAuth, formError}) => {
 
-    const onSubmitHandler = (formData: FormDataType) => {
+    const onSubmitHandler = (formData: LoginFormDataType) => {
         login(formData.email, formData.password, formData.rememberMe)
     }
 
@@ -33,14 +33,14 @@ const LoginPage: React.FC<LoginPagePropsType> = ({login, isAuth, authError}) => 
     return (
         <div>
             <h2>Login</h2>
-            <LoginForm authError={authError} onSubmitHandler={onSubmitHandler}/>
+            <LoginForm authError={formError} onSubmitHandler={onSubmitHandler}/>
         </div>
     )
 }
 
 const mapStateToProps = (state: AppRootStateType) => ({
     isAuth: state.auth.isAuth,
-    authError: state.auth.authError
+    formError: state.form.error
 })
 
 export default connect(mapStateToProps, {login})(LoginPage)

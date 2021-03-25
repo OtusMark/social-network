@@ -1,10 +1,17 @@
 import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getProfileStatus, getUserProfile, savePhoto, updateProfileStatus} from "../../redux/reducers/profile-reducer";
+import {
+    getProfileStatus,
+    getUserProfile,
+    savePhoto,
+    saveProfile, setEditMode,
+    updateProfileStatus
+} from "../../redux/reducers/profile-reducer";
 import {withRouter} from 'react-router-dom';
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {AppRootStateType} from "../../redux/store";
 
 type PropsType = any
 
@@ -35,22 +42,28 @@ class ProfileContainer extends React.Component<PropsType, {}> {
             <Profile isOwner={!this.props.match.params.userId}
                      profile={this.props.profile}
                      status={this.props.status}
+                     editMode={this.props.editMode}
                      updateStatus={this.props.updateProfileStatus}
                      savePhoto={this.props.savePhoto}
+                     saveProfile={this.props.saveProfile}
+                     formError={this.props.formError}
+                     setEditMode={this.props.setEditMode}
                      {...this.props}/>
         )
     }
 }
 
-let mapStateToProps = (state: any) => ({
+let mapStateToProps = (state: AppRootStateType) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    editMode: state.profilePage.profileEditModeOn,
     loggedInUserId: state.auth.userId,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    formError: state.form.error
 })
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile, getProfileStatus, updateProfileStatus, savePhoto}),
+    connect(mapStateToProps, {getUserProfile, getProfileStatus, updateProfileStatus, savePhoto, saveProfile, setEditMode}),
     withRouter, withAuthRedirect
 )(ProfileContainer)
 

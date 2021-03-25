@@ -1,11 +1,14 @@
 import {profileAPI} from "../../api/api";
 import {Dispatch} from "redux";
+import {AppRootStateType} from "../store";
+import {clearFormError, setFormError} from "./form-reducer";
 
 const ADD_POST = 'profile/ADD_POST'
 const DELETE_POST = 'profile/DELETE_POST'
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE'
 const SET_STATUS = 'profile/SET_STATUS'
 const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS'
+const SET_EDIT_MODE = 'profile/SET_EDIT_MODE'
 
 let initialState: profileStateType = {
     posts: [
@@ -16,6 +19,7 @@ let initialState: profileStateType = {
         {id: 5, post: 'My fifth post', likes: 5}
     ],
     profile: null,
+    profileEditModeOn: false,
     status: ''
 }
 
@@ -52,6 +56,12 @@ export const profileReducer = (state: profileStateType = initialState, action: P
                 profile: {...state.profile, photos: action.photos}
             }
         }
+        case SET_EDIT_MODE: {
+            return {
+                ...state,
+                profileEditModeOn: action.editModeState
+            }
+        }
         default:
             return state
     }
@@ -61,6 +71,8 @@ export const profileReducer = (state: profileStateType = initialState, action: P
 export const addPost = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
 
 export const deletePost = (postId: number) => ({type: DELETE_POST, postId} as const)
+
+export const setEditMode = (editModeState: boolean) => ({type: SET_EDIT_MODE, editModeState} as const)
 
 export const setUserProfile = (profile: any) => ({
     type: SET_USER_PROFILE, profile
@@ -76,19 +88,19 @@ export const savePhotoSuccess = (photos: Array<HTMLImageElement>) => ({
 
 // Thunk creators
 export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
-    let response = await profileAPI.getProfile(userId)
 
+    const response = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(response.data))
 }
 
 export const getProfileStatus = (userId: number) => async (dispatch: Dispatch) => {
-    let response = await profileAPI.getStatus(userId)
+    const response = await profileAPI.getStatus(userId)
 
     dispatch(setStatus(response.data))
 }
 
 export const updateProfileStatus = (newStatus: string) => async (dispatch: Dispatch) => {
-    let response = await profileAPI.updateStatus(newStatus)
+    const response = await profileAPI.updateStatus(newStatus)
 
     if (response.data.resultCode === 0) {
         dispatch(setStatus(newStatus))
@@ -96,12 +108,29 @@ export const updateProfileStatus = (newStatus: string) => async (dispatch: Dispa
 }
 
 export const savePhoto = (file: HTMLImageElement) => async (dispatch: Dispatch) => {
-    let response = await profileAPI.savePhoto(file)
+    const response = await profileAPI.savePhoto(file)
 
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
+
+export const saveProfile = (profileData: ProfileType) => async (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    const userId = getState().auth.userId
+
+    const response = await profileAPI.saveProfile(profileData)
+
+    if (response.data.resultCode === 0) {
+        dispatch(clearFormError())
+        dispatch(setEditMode(false))
+        // @ts-ignore
+        dispatch(getUserProfile(userId))
+    } else {
+        dispatch(setEditMode(true))
+        dispatch(setFormError(response.data.messages))
+    }
+}
+
 // Types
 export type PostType = {
     id: number
@@ -109,12 +138,37 @@ export type PostType = {
     likes: number
 }
 
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    aboutMe: string
+    photos: {
+        small: string
+        large: string
+    }
+    contacts: ProfileContactsType
+}
+
+export type ProfileContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+} & {[index: string]:any} // Defining index types
+
 export type PostDataType = Array<PostType>
 
 export type profileStateType = {
     posts: PostDataType
-    profile: {} | null
+    profile: ProfileType | null
     status: string
+    profileEditModeOn: boolean
 }
 
 export type ProfileActionsType =
@@ -123,6 +177,7 @@ export type ProfileActionsType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof savePhotoSuccess>
+    | ReturnType<typeof setEditMode>
 
 
 

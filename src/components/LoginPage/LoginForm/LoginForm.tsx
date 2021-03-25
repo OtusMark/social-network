@@ -1,9 +1,11 @@
 import React from "react";
-import {Form, Field} from 'react-final-form'
+import {Field, Form} from 'react-final-form'
+import {LoginFormDataType} from "../LoginPage";
+import {FormErrorType} from "../../../redux/reducers/form-reducer";
 
 type PropsType = {
-    authError: {status: boolean, messages: Array<string>}
-    onSubmitHandler: (formData: any) => void
+    authError: FormErrorType
+    onSubmitHandler: (formData: LoginFormDataType & any) => void
 }
 
 export const LoginForm: React.FC<PropsType> = ({onSubmitHandler, authError}) => {
