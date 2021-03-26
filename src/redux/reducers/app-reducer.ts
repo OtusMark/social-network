@@ -4,7 +4,8 @@ import {Dispatch} from "redux";
 const APP_IS_INITIALIZED = 'app/APP_IS_INITIALIZED'
 
 let initialState = {
-    initialized: false
+    initialized: false,
+    globalError: null
 }
 
 export const appReducer = (state: AppStateType = initialState, action: AppActionsType) => {

@@ -53,18 +53,6 @@ class UsersContainerClass extends React.Component<PropsType, {}> {
     }
 }
 
-// let mapStateToProps = (state: CombinedStateType) => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress
-//     }
-// }
-// code before selectors
-
 let mapStateToProps = (state: AppRootStateType) => {
     return {
         users: UsersSelectorR(state),
@@ -134,3 +122,16 @@ type PropsType = {
 //         }
 //     }
 // }
+
+//
+// let mapStateToProps = (state: CombinedStateType) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress
+//     }
+// }
+// code before selectors

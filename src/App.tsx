@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import {Navbar} from "./components/Navbar/Navbar";
-import {BrowserRouter, HashRouter, Route} from "react-router-dom";
+import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/LoginPage/LoginPage";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -19,8 +19,19 @@ type PropsType = any
 
 class App extends React.Component<PropsType, any> {
 
+    catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
+        console.error('catch unhandled error have been triggered')
+        console.error(promiseRejectionEvent)
+    }
+
     componentDidMount() {
         this.props.initializeApp()
+
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
 
     render() {
@@ -34,17 +45,26 @@ class App extends React.Component<PropsType, any> {
                     <Navbar/>
                     <div className='app-content'>
 
-                        <Route path='/profile/:userId?'>
-                            <ProfileContainer/>
-                        </Route>
+                        <Switch>
 
-                        <Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
+                            <Redirect exact path='/' to={'/profile'}/>
 
-                        <Route path='/users' render={withSuspense(UsersContainer)}/>
+                            <Route path='/profile/:userId?'>
+                                <ProfileContainer/>
+                            </Route>
 
-                        <Route path='/login'>
-                            <LoginPage/>
-                        </Route>
+                            <Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
+
+                            <Route path='/users' render={withSuspense(UsersContainer)}/>
+
+                            <Route path='/login'>
+                                <LoginPage/>
+                            </Route>
+
+                            <Route path='*'>
+                                <div> 404 page</div>
+                            </Route>
+                        </Switch>
 
                     </div>
                 </div>

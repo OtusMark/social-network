@@ -94,9 +94,10 @@ export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => 
 }
 
 export const getProfileStatus = (userId: number) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.getStatus(userId)
 
+    const response = await profileAPI.getStatus(userId)
     dispatch(setStatus(response.data))
+
 }
 
 export const updateProfileStatus = (newStatus: string) => async (dispatch: Dispatch) => {
@@ -160,7 +161,7 @@ export type ProfileContactsType = {
     website: string
     youtube: string
     mainLink: string
-} & {[index: string]:any} // Defining index types
+} & { [index: string]: any } // Defining index types
 
 export type PostDataType = Array<PostType>
 

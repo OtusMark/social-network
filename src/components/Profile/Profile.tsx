@@ -1,7 +1,7 @@
 import React from 'react';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-import {ProfileType, setEditMode} from "../../redux/reducers/profile-reducer";
+import {ProfileType} from "../../redux/reducers/profile-reducer";
 import {FormErrorType} from "../../redux/reducers/form-reducer";
 
 type PropsType = {
