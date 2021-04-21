@@ -33,6 +33,8 @@ const LoginPage: React.FC<LoginPagePropsType> = ({login, isAuth, formError}) => 
     return (
         <div>
             <h2>Login</h2>
+            <p>Login: dev000test111@gmail.com</p>
+            <p>Password: react-redux-100%</p>
             <LoginForm authError={formError} onSubmitHandler={onSubmitHandler}/>
         </div>
     )
