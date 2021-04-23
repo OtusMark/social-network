@@ -5,6 +5,8 @@ import userAvatarDefault from "../../../assets/images/avatar-default.png";
 import {ProfileType} from "../../../redux/reducers/profile-reducer";
 import {ProfileDataForm} from "./ProfileDataForm";
 import {FormErrorType} from "../../../redux/reducers/form-reducer";
+import {Button} from "../../common/Button/Button";
+import {InputFile} from "../../common/InputFile/InputFile";
 
 type propsType = {
     isOwner: boolean
@@ -55,7 +57,7 @@ export const ProfileInfo: React.FC<propsType> = (props) => {
         <div>
             <div>
                 <img src={profile.photos.large || userAvatarDefault} alt=""/>
-                {isOwner && <input type={'file'} onChange={onMainPhotoSelect}/>}
+                {isOwner && <InputFile onChange={onMainPhotoSelect}/>}
             </div>
 
             {editMode ? <ProfileDataForm profile={profile} onEditSubmitHandler={onEditSubmitHandler} formError={formError}/> :
@@ -78,7 +80,7 @@ type ProfileDataPropsType = {
 const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEditMode}) => {
     return (
         <div>
-            {isOwner && <button onClick={goToEditMode}>edit</button>}
+            {isOwner && <Button onClick={goToEditMode}>edit</Button>}
             <div>Full name {profile.fullName}</div>
 
             <div>Looking for a job: {profile.lookingForAJob ? 'yes' : 'no'}</div>

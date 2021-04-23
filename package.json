@@ -1,10 +1,9 @@
 {
-  "name": "samurai",
+  "name": "samurai-social-network",
   "homepage": "https://otusmark.github.io/social-network/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -19,7 +18,7 @@
     "@types/styled-components": "^5.1.9",
     "axios": "^0.21.1",
     "final-form": "^4.20.2",
-    "node-sass": "4.14.1",
+    "polished": "^4.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-final-form": "^6.5.2",

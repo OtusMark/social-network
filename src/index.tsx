@@ -1,17 +1,22 @@
 import React from 'react';
 import reportWebVitals from './reportWebVitals';
-import './index.scss';
 import {store} from "./redux/store";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import App from "./App";
+import {ThemeProvider} from "styled-components";
+import {theme} from "./styles/theme";
+import { GlobalStyles } from './styles/GlobalStyles';
 
 
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
-            <App/>
+            <ThemeProvider theme={theme}>
+                <GlobalStyles/>
+                <App/>
+            </ThemeProvider>
         </Provider>
     </BrowserRouter>,
     document.getElementById('root'))

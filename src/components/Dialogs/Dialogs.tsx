@@ -1,5 +1,4 @@
 import React from 'react';
-import s from './Dialogs.module.scss'
 import {DialogsItem} from "./DialogsItem/DialogsItem";
 import {Messages} from "./Messages/Messages";
 import {dialogsStateType, DialogsType, MessagesType} from "../../redux/reducers/dialogs-reducer";
@@ -28,11 +27,11 @@ export const Dialogs = (props: PropsType) => {
         props.SendMessage(message)
     }
     return (
-        <div className={s.dialogs}>
-            <div className={s.dialogsList}>
+        <div>
+            <div>
                 <div>{dialogsElements}</div>
             </div>
-            <div className={s.chat}>
+            <div>
                 <div>{messages}</div>
                 <AddMessageForm
                     onSendMessageClick={onSendMessageClick}/>

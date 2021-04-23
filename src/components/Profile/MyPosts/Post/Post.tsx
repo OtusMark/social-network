@@ -1,6 +1,7 @@
 import React from 'react';
-import s from './Post.module.scss'
 import {PostType} from "../../../../redux/reducers/profile-reducer";
+import { Avatar } from '../../../common/Avatar/Avatar';
+import styled from "styled-components";
 
 type PostPropsType = PostType;
 
@@ -8,10 +9,14 @@ let avatarSrc = 'https://at-cdn-s02.audiotool.com/2020-12-04/users/error_/avatar
 
 export const Post: React.FC<PostPropsType> = (props) => {
     return (
-        <div className={s.post}>
-            <img src={avatarSrc} alt="Avatar" className={s.avatar}/>
+        <PostWrapper>
+            <Avatar src={avatarSrc} size='small' alt="Avatar"/>
             <div>{props.post}</div>
             <div>Likes: {props.likes}</div>
-        </div>
+        </PostWrapper>
     )
 }
+
+const PostWrapper = styled.div`
+  
+`

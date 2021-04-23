@@ -1,6 +1,5 @@
 import React, {MouseEventHandler} from 'react';
 import { NavLink } from 'react-router-dom';
-import s from './Header.module.scss'
 
 type PropsType = {
     isAuth: boolean
@@ -10,7 +9,7 @@ type PropsType = {
 
 export const Header = (props: PropsType) => {
     return (
-        <header className={s.header}>
+        <header>
             <div>
                 { props.isAuth
                     ? <div>{props.login} <button onClick={props.logout}>Log out</button></div>

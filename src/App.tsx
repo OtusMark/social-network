@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.scss';
 import {Navbar} from "./components/Navbar/Navbar";
 import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";

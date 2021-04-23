@@ -1,5 +1,4 @@
 import React from 'react';
-import s from './MyPosts.module.scss'
 import {Post} from "./Post/Post";
 import {PostDataType} from "../../../redux/reducers/profile-reducer";
 import {Field, Form} from "react-final-form";
@@ -21,7 +20,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
     }
 
     return (
-        <div className={s.myPosts}>
+        <div>
             <NewPostForm onAddPost={onAddPost}/>
             <div>
                 {myPosts}
